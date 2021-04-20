@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/white"
+    tools:context=".InterfaceScreen.ConstructionScreen.ExerciseScreen.ExerciseFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/sport_men" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/corner_shepe_for_rv"
+                android:layout_marginTop="225dp">
+
+                <TextView
+                    android:id="@+id/nameTraining"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="-20dp"
+                    android:gravity="center"
+                    android:text="  Тренировка на бицепс"
+                    android:textSize="20dp"
+                    android:background="@drawable/btn_rounder_corner"/>
+
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="-20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="  Описание"
+                    android:textSize="20dp"
+                    android:background="@drawable/btn_rounder_corner"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="хотя важно помнить, что пресс на самом деле представляет собой длинную мышцу, которая соединяет нижнюю часть груди и таз и что большинство упражнений для пресса задействуют все мышцы кора, обратные скручивания подчеркнут нижнюю часть мышц живота."
+                    android:textColor="@color/black"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="-20dp"
+                    android:gravity="center"
+                    android:text="Группы мышц"
+                    android:textSize="20dp"
+                    android:background="@drawable/btn_rounder_corner"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="50dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:text="Детали"
+                    android:textSize="20dp"
+                    android:gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/custom_add_window"
+                    android:layout_height="130dp"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <Button
+                        android:id="@+id/addButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/empty_background"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/transparent_black"
+                        android:src="@drawable/ic_baseline_add_24" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

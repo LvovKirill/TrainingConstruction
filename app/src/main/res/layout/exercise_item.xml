@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/elasticCardView"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginVertical="15dp"
+        android:layout_marginHorizontal="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageProgramItem"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/blueSheet"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sport_men" />
+
+            <RelativeLayout
+                android:id="@+id/blueSheet"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/blue">
+
+            <TextView
+                android:id="@+id/name_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Силовая тренировка на бицепс"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+                <LinearLayout
+                    android:id="@+id/icon_muscle_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name_exercise"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ic_press"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="2dp"
+                        android:src="@drawable/ic_chest"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/ic_arm"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:src="@drawable/ic_arm"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/ic_back"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:src="@drawable/ic_back"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/ic_chest"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:src="@drawable/ic_chest"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/ic_leg"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:src="@drawable/ic_leg"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/ic_sholders"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:src="@drawable/ic_shoulder"
+                        app:tint="@color/transparent_wite" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

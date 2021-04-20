@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">TrainingConstructor</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="my_program">мои программы</string>
+    <string name="constraction">конструктор</string>
+    <string name="kalendar">календарь</string>
+    <string name="statistics">статистика</string>
+    <string name="settings">настройки</string>
+
+    <string name="programs">программы</string>
+    <string name="trainings">тренировки</string>
+    <string name="exercises">упражнения</string>
+
+    <string name="training_inclination_1">тренировку</string>
+    <string name="program_inclination_1">программу</string>
+
+    <string name="hint_name_create_program">введите название программы</string>
+
+    <string name="press">пресс</string>
+    <string name="arm">руки</string>
+    <string name="back">спина</string>
+    <string name="chest">грудь</string>
+    <string name="leg">ноги</string>
+    <string name="shoulder">плечи</string>
+
+    <string name="name_programm_in_create_list">Название программы</string>
+    <string name="muscle_groups">Группы мышц</string>
+    <string name="about_programm_in_create_list">напишите описание программы</string>
+    <string name="image_programm_in_create_list">Изображение программы</string>
+    <string name="create">создать</string>
+
+    //toast
+    <string name="empty_not_saved">что-то пошло не так</string>
+    <string name="input_name">введите название</string>
+    <string name="input_about">введите описание</string>
+
+    <string name="choose_muscle_group">выберите группу мышц</string>
+    <string name="add">добавить</string>
+    <string name="exersise">упражнение</string>
+    <string name="rest">отдых</string>
+
+    <string name="time">Время: </string>
+    <string name="repeat">Повторения:</string>
+    <string name="weight">Вес:</string>
+
+
+    //questions
+    <string name="delete_question">Вы уверены, что хотите удалить</string>
+    <string name="min">мин</string>
+
+    //week
+    <string name="mondey">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
+    <string name="start">начать</string>
+
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="@color/transparent_black"
+    tools:context=".InterfaceScreen.ConstructionScreen.TrainingScreen.AddPoint.AddPointExersiseFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editCount"
+                    android:background="@drawable/custom_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:hint="повторения"
+                    android:textColor="#000000"
+                    android:textColorHint="@color/hint_color" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editProgramNam"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_input"
+                android:hint="вес"
+                android:textColor="#000000"
+                android:textColorHint="@color/hint_color" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editProgramNam"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_input"
+                android:hint="время"
+                android:textColor="#000000"
+                android:textColorHint="@color/hint_color" />
+
+            <TextView
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="название"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="20dp"/>
+
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/create"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounder_corner"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myAddPointExersiseRecyclerview"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
