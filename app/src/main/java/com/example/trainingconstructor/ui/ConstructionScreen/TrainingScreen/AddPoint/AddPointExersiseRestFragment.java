@@ -1,5 +1,6 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddPoint;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trainingconstructor.R;
+import com.example.trainingconstructor.databinding.FragmentAddPointExersiseBinding;
+import com.example.trainingconstructor.databinding.FragmentAddPointExersiseRestBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +19,8 @@ import com.example.trainingconstructor.R;
  * create an instance of this fragment.
  */
 public class AddPointExersiseRestFragment extends Fragment {
+
+    FragmentAddPointExersiseRestBinding binding;
 
 
     public static AddPointExersiseRestFragment newInstance(String param1, String param2) {
@@ -30,6 +35,8 @@ public class AddPointExersiseRestFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_point_exersise_rest, container, false);
+        binding = FragmentAddPointExersiseRestBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
     }
 }

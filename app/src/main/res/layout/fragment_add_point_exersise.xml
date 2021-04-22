@@ -27,46 +27,113 @@
             android:background="@color/white">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editCount"
-                    android:background="@drawable/custom_input"
-                    android:layout_width="match_parent"
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:hint="повторения"
-                    android:textColor="#000000"
-                    android:textColorHint="@color/hint_color" />
+                    android:text="@string/repeat1"
+                    android:gravity="center" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editWeight"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="50dp"
+                    android:layout_gravity="center">
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:id="@+id/counter_repeat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:backGroundColor="@color/blue"
+                        android:gravity="center"
+                        app:textSize="10dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editProgramNam"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/custom_input"
-                android:hint="вес"
-                android:textColor="#000000"
-                android:textColorHint="@color/hint_color" />
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTime"
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/weight1"
+                    android:gravity="center" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="50dp"
+                    android:layout_gravity="center">
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:id="@+id/counter_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:backGroundColor="@color/blue"
+                        android:gravity="center"
+                        app:textSize="10dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editProgramNam"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/custom_input"
-                android:hint="время"
-                android:textColor="#000000"
-                android:textColorHint="@color/hint_color" />
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/time_and_min"
+                    android:gravity="center" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:cardCornerRadius="50dp"
+                    android:layout_gravity="center">
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:id="@+id/counter_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:backGroundColor="@color/blue"
+                        android:gravity="center"
+                        app:textSize="10dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="название"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:textSize="20dp"/>

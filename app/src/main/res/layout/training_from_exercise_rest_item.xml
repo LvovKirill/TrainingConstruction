@@ -43,12 +43,14 @@
                         android:id="@+id/timeRest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="20dp"
                         android:text="3" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:layout_marginLeft="5dp"
                         android:textSize="20dp"
                         android:text="@string/min" />

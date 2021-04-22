@@ -60,9 +60,9 @@ public class AddPointExersiseFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        int repeat = Integer.parseInt(binding.editCount.getText().toString());
-        int weight = Integer.parseInt(binding.editWeight.getText().toString());
-        int time = Integer.parseInt(binding.editTime.getText().toString());
+        int repeat = Integer.parseInt(binding.counterRepeat.getNumber().toString());
+        int weight = Integer.parseInt(binding.counterWeight.getNumber().toString());
+        int time = Integer.parseInt(binding.counterTime.getNumber().toString());
         int exerciseID = Integer.parseInt(binding.editText.getText().toString());
         int trainingID = getArguments().getInt("ID");
 

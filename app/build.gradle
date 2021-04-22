@@ -54,6 +54,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     //календарь
     implementation "org.naishadhparmar.zcustomcalendar:zcustomcalendar:1.0.1"
+    //счётчик
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

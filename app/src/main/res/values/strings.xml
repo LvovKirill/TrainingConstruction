@@ -59,5 +59,9 @@
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
     <string name="start">начать</string>
+    <string name="rest_time">время отдыха</string>
+    <string name="repeat1">повторения</string>
+    <string name="weight1">вес</string>
+    <string name="time_and_min">время (мин)</string>
 
 </resources>

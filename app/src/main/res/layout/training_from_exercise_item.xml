@@ -124,6 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:text="@string/repeat"/>
 
@@ -131,6 +132,7 @@
                         android:id="@+id/repeat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:layout_marginLeft="5dp"
                         android:text="10"/>
@@ -152,12 +154,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:textColor="@color/white"
                         android:text="@string/time"/>
 
                     <TextView
                         android:id="@+id/timeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:layout_marginLeft="5dp"
                         android:text="10"/>
@@ -165,6 +169,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:layout_marginLeft="5dp"
                         android:text="мин"/>
@@ -184,6 +189,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:text="@string/weight"/>
 
@@ -191,6 +197,7 @@
                         android:id="@+id/weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:layout_marginLeft="5dp"
                         android:text="5"/>
@@ -198,6 +205,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:textSize="12dp"
                         android:layout_marginLeft="5dp"
                         android:text="кг"/>
