@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:background="@color/white"
-    tools:context=".InterfaceScreen.ConstructionScreen.TrainingScreen.TrainingFragment">
+    tools:context=".ui.ConstructionScreen.TrainingScreen.TrainingFragment">
 
     <ImageView
         android:layout_width="match_parent"
@@ -131,17 +131,6 @@
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
-                        <Button
-                            android:id="@+id/Button"
-                            android:layout_width="46dp"
-                            android:layout_height="152dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/btn_rounder_corner"
-                            android:gravity="center"
-                            android:paddingHorizontal="40dp"
-                            android:text="начать" />
-
                     </TableRow>
 
                 <Button
@@ -204,27 +193,63 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <FrameLayout
+
+
+
+                <TableRow
                     android:layout_width="match_parent"
-                    android:background="@drawable/custom_add_window"
-                    android:layout_height="130dp"
-                    android:layout_marginVertical="15dp"
-                    android:layout_marginHorizontal="20dp">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/addButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/empty_background"/>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:tint="@color/transparent_black"
-                        android:src="@drawable/ic_baseline_add_24" />
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_add_window"
+                        android:layout_height="130dp"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginHorizontal="20dp">
 
-                </FrameLayout>
+                        <Button
+                            android:id="@+id/addPointButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/empty_background"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:tint="@color/transparent_black"
+                            android:src="@drawable/ic_baseline_add_24" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_add_window"
+                        android:layout_height="130dp"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginHorizontal="20dp">
+
+                        <Button
+                            android:id="@+id/addRestButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/empty_background"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:tint="@color/transparent_black"
+                            android:src="@drawable/ic_baseline_add_24" />
+
+                    </FrameLayout>
+
+                </TableRow>
 
 
             </LinearLayout>

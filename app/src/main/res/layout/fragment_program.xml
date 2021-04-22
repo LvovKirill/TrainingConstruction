@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:background="@color/white"
-    tools:context=".InterfaceScreen.ConstructionScreen.ProgramScreen.ProgramFragment">
+    tools:context=".ui.ConstructionScreen.ProgramScreen.ProgramFragment">
 
     <ImageView
         android:layout_width="match_parent"

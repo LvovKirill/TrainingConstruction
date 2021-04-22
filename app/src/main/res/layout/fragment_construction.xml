@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".InterfaceScreen.ConstructionScreen.ConstructionFragment">
+    tools:context=".ui.ConstructionScreen.ConstructionFragment">
 
 
         <RelativeLayout

@@ -10,13 +10,18 @@ import com.example.trainingconstructor.DataBase.Training.Training;
 
 
 
-    @Entity(tableName = "training_from_exercise_table", primaryKeys = { "exerciseId", "trainingId"},
-            foreignKeys = {
-                    @ForeignKey(entity = Exercise.class, parentColumns = "id", childColumns = "exerciseId"),
-                    @ForeignKey(entity = Training.class, parentColumns = "id", childColumns = "trainingId")
-            })
+    @Entity(tableName = "training_from_exercise_table"
+//            ,
+//            primaryKeys = { "exerciseId", "trainingId"},
+//            foreignKeys = {
+//                    @ForeignKey(entity = Exercise.class, parentColumns = "id", childColumns = "exerciseId"),
+//                    @ForeignKey(entity = Training.class, parentColumns = "id", childColumns = "trainingId")
+//            }
+            )
     public class TrainingFromExercise  {
 
+        @PrimaryKey (autoGenerate = true)
+        private int id;
     private int exerciseId;
     private int trainingId;
     private int repeat;
@@ -25,6 +30,17 @@ import com.example.trainingconstructor.DataBase.Training.Training;
     private int time;
 
 
+        public TrainingFromExercise(int id, int exerciseId, int trainingId, int repeat, int weight, int time, int item) {
+            this.id = id;
+            this.exerciseId = exerciseId;
+            this.trainingId = trainingId;
+            this.repeat = repeat;
+            this.weight = weight;
+            this.item = item;
+            this.time = time;
+        }
+
+        @Ignore
     public TrainingFromExercise(int exerciseId, int trainingId, int repeat, int weight, int time, int item) {
         this.exerciseId = exerciseId;
         this.trainingId = trainingId;
@@ -81,4 +97,12 @@ import com.example.trainingconstructor.DataBase.Training.Training;
     public void setTime(int time) {
         this.time = time;
     }
-}
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }

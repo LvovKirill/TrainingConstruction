@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:background="@color/transparent_black"
-    tools:context=".InterfaceScreen.ConstructionScreen.TrainingScreen.CreateTrainingFragment">
+    tools:context=".ui.ConstructionScreen.TrainingScreen.CreateTrainingFragment">
 
       <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

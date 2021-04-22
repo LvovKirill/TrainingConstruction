@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".InterfaceScreen.TabataTimerScreen.TabataTimerFragment">
+    tools:context=".ui.TabataTimerScreen.TabataTimerFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
