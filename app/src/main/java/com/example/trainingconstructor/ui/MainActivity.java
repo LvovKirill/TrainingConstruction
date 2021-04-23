@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.renderscript.ScriptGroup;
+import android.widget.ImageView;
 
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
 import com.example.trainingconstructor.DataBase.Program.Program;
@@ -29,6 +35,7 @@ import com.example.trainingconstructor.R;
 import com.shrikanthravi.customnavigationdrawer2.data.MenuItem;
 import com.shrikanthravi.customnavigationdrawer2.widget.SNavigationDrawer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements
     public TrainingViewModel getTrainingViewModel() {
         return trainingViewModel;
     }
+
+    static final int GALLERY_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +149,38 @@ public class MainActivity extends AppCompatActivity implements
                         System.out.println("State "+newState);
                     }
                 });
+
             }
         });
     }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+//        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+//
+//        Bitmap bitmap = null;
+//        ImageView imageView = (ImageView) findViewById(R.id.image_create_training);
+//
+//
+//        switch (requestCode) {
+//            case GALLERY_REQUEST:
+//                if (resultCode == RESULT_OK) {
+//                    Uri selectedImage = imageReturnedIntent.getData();
+//                    try {
+//                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    imageView.setImageBitmap(bitmap);
+//
+//                }
+//
+//        }
+//    }
+
+
+
 
     //связь
 
