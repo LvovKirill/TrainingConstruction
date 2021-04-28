@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.example.trainingconstructor.DataBase.DataBase;
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
+import com.example.trainingconstructor.DataBase.Training.TrainingViewModel;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExerciseViewModel;
 import com.example.trainingconstructor.ui.ConstructionScreen.ExerciseScreen.MyExerciseFragment;
@@ -46,6 +47,8 @@ public class TrainingFragment extends Fragment {
 
     FragmentTrainingBinding binding;
     public static TrainingFromExerciseViewModel trainingFromExerciseViewModel;
+    public static TrainingViewModel trainingViewModel;
+
 
     public static TrainingFragment newInstance(int id) {
         TrainingFragment trainingFragment = new TrainingFragment();
@@ -78,8 +81,6 @@ public class TrainingFragment extends Fragment {
         trainingFromExerciseViewModel.getTrainingFromExercisesFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
             adapter.submitList(exercises);
         });
-
-
 
         //Button
         binding.addPointButton.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +186,8 @@ public class TrainingFragment extends Fragment {
     }
 
     void loadPage(DataCounter dataCounter){
-        binding.nameTraining.setText(getArguments().getString("NAME"));
+        String name = DataBase.getDatabase(getActivity()).trainingDao().getTrainingByID(getArguments().getInt("ID")).getName();
+        binding.nameTraining.setText(name);
         binding.timeTraining.setText(Integer.toString(dataCounter.countTime));
         binding.countExercise.setText(Integer.toString(dataCounter.countExercise));
     }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".ui.TabataTimerScreen.TabataTimerFragment">
 
     <RelativeLayout
+        android:id="@+id/main_baner"
         android:layout_width="match_parent"
         android:layout_height="250dp">
     <ImageView
@@ -20,42 +22,103 @@
             android:layout_height="match_parent"
             android:background="@color/transparent_black"/>
 
-        <ProgressBar
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15:00"
+            android:text="15X"
             android:textSize="30dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
-    <RelativeLayout
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue">
+        android:layout_below="@+id/main_baner"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="-20dp"
+        app:cardCornerRadius="20dp">
 
-        <TextView
-            android:id="@+id/nameCurrent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Скручивания на пресс"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginVertical="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue">
+
+                <TextView
+                    android:id="@+id/nameCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+                    android:text="Скручивания на пресс"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
 
 
-    <include layout="@layout/training_from_exercise_item" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="00:15"
+                    android:textColor="@color/blue"
+                    android:textSize="45dp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/mButtonStartPause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/btn_rounder_corner"
+                        android:paddingHorizontal="20dp"
+                        android:text="старт" />
+
+                    <Button
+                        android:id="@+id/mButtonReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/btn_rounder_corner"
+                        android:paddingHorizontal="20dp"
+                        android:text="заново" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 
-</LinearLayout>
+</RelativeLayout>

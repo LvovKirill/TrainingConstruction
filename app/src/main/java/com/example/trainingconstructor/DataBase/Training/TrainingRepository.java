@@ -29,6 +29,12 @@ class TrainingRepository {
         });
     }
 
+    void getTrainingByID(int id) {
+        DataBase.databaseWriteExecutor.execute(() -> {
+            mTrainingDao.getTrainingByID(id);
+        });
+    }
+
     void deleteByID(int id) {
         DataBase.databaseWriteExecutor.execute(() -> {
             mTrainingDao.deleteById(id);

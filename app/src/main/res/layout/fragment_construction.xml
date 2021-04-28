@@ -56,13 +56,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="программы"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:gravity="center"/>
 
             <TextView
                 android:id="@+id/customTabItem2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/hint_color"
                 android:layout_weight="1"
                 android:text="тренировки"
                 android:gravity="center"/>
@@ -71,6 +72,7 @@
                 android:id="@+id/customTabItem3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/hint_color"
                 android:layout_weight="1"
                 android:text="упражнения"
                 android:gravity="center"/>
