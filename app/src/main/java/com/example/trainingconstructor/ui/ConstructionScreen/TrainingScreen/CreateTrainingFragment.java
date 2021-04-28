@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,14 +31,20 @@ import com.example.trainingconstructor.ui.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.sql.Time;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+import static android.provider.Telephony.Mms.Part.FILENAME;
+import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
 public class CreateTrainingFragment extends Fragment {
 
@@ -83,7 +90,7 @@ public class CreateTrainingFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
                     Training training = new Training(name, press_type, hands_type, foot_type, back_type, breast_type, sholders_type);
-//                    onLoadImage();
+                    onLoadImage();
 
 
                     if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
@@ -93,7 +100,7 @@ public class CreateTrainingFragment extends Fragment {
 
                         FragmentManager fragmentManager = getFragmentManager();
 
-                        TrainingFragment myFragment = TrainingFragment.newInstance(training.getId(), training.getName());
+                        TrainingFragment myFragment = TrainingFragment.newInstance(training.getId());
                         fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                                 .addToBackStack("myStack")
                                 .commit();
@@ -162,76 +169,18 @@ public class CreateTrainingFragment extends Fragment {
     public String onLoadImage(){
         BitmapDrawable drawable = (BitmapDrawable)binding.imageCreateTraining.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
-        File filepath = Environment.getExternalStorageDirectory();
-        File dir = new File(filepath.getAbsolutePath()+"/Training_Constructor/");
-        File file = new File(dir, System.currentTimeMillis()+".jpg");
-
-        try{
-            outputStream = new FileOutputStream(file);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        Toast.makeText(getActivity(), file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-
-        try {
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return file.getAbsolutePath();
-    }
-
-
-    private void askPermission() {
-
-        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                saveImage();
-            }else {
-                Toast.makeText(getActivity(),"Please provide the required permissions",Toast.LENGTH_SHORT).show();
-            }
-
-        }
-
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private void saveImage() {
-
-//        File dir = new File(Environment.getExternalStorageDirectory(),"SaveImage");
+//        File filepath = Environment.getExternalStorageDirectory();
+//        File dir = new File(filepath.getAbsolutePath()+"/Training_Constructor/");
+//        File file = new File(dir, System.currentTimeMillis()+".jpg");
 //
-//        if (!dir.exists()){
-//
-//            dir.mkdir();
-//
-//        }
-//
-        BitmapDrawable drawable = (BitmapDrawable) binding.imageCreateTraining.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-//
-//        File file = new File(dir,System.currentTimeMillis()+".png");
-//        try {
+//        try{
 //            outputStream = new FileOutputStream(file);
-//        } catch (FileNotFoundException e) {
+//        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-//        bitmap.compress(Bitmap.CompressFormat.PNG,10,outputStream);
-//        Toast.makeText(getActivity(),"Successfuly Saved",Toast.LENGTH_SHORT).show();
+//
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+//        Toast.makeText(getActivity(), file.getAbsolutePath(), Toast.LENGTH_LONG).show();
 //
 //        try {
 //            outputStream.flush();
@@ -244,44 +193,79 @@ public class CreateTrainingFragment extends Fragment {
 //            e.printStackTrace();
 //        }
 
+        OutputStream fOut = null;
+//        Time time = new Time();
+//        time.setToNow();
 
-        File f = new File(getActivity().getCacheDir(), System.currentTimeMillis()+".jpg");
         try {
-            f.createNewFile();
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(getActivity().openFileOutput("FILENAME", MODE_PRIVATE)));
+//            Toast.makeText(getActivity(), FILN)
+            // пишем данные
+            bw.write("Содержимое файла");
+            // закрываем поток
+            bw.close();
+            Log.d(LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//Convert bitmap to byte array
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100/*ignored for PNG*/, bos);
-        byte[] bitmapdata = bos.toByteArray();
+        return "filename12345";
+    }
 
-//write the bytes in file
-        FileOutputStream fos = null;
+
+    private void askPermission() {
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                saveImage();
+            }else {
+                Toast.makeText(getActivity(),"Please provide the required permissions",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void saveImage() {
+
+        File dir = new File(Environment.getExternalStorageDirectory(),"TrainingConstruction");
+
+        if (!dir.exists()){
+
+            dir.mkdir();
+
+        }
+
+        BitmapDrawable drawable = (BitmapDrawable) binding.imageCreateTraining.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        File file = new File(dir,System.currentTimeMillis()+".jpg");
+
         try {
-            fos = new FileOutputStream(f);
+            outputStream = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            Toast.makeText(getActivity(),"Successfuly Saved",Toast.LENGTH_SHORT).show();
+
+
         try {
-            fos.write(bitmapdata);
+            outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            fos.flush();
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Toast.makeText(getActivity(),f.getAbsolutePath(),Toast.LENGTH_SHORT).show();
-
-
     }
 }

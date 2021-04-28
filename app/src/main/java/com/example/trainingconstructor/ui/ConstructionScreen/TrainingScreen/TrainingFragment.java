@@ -4,12 +4,15 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TrainingFragment extends Fragment {
@@ -43,11 +47,10 @@ public class TrainingFragment extends Fragment {
     FragmentTrainingBinding binding;
     public static TrainingFromExerciseViewModel trainingFromExerciseViewModel;
 
-    public static TrainingFragment newInstance(int id, String name) {
+    public static TrainingFragment newInstance(int id) {
         TrainingFragment trainingFragment = new TrainingFragment();
         Bundle args = new Bundle();
         args.putInt("ID", id);
-        args.putString("NAME", name);
         trainingFragment.setArguments(args);
         return trainingFragment;
     }
@@ -69,9 +72,13 @@ public class TrainingFragment extends Fragment {
 
         trainingFromExerciseViewModel = new ViewModelProvider(this).get(TrainingFromExerciseViewModel.class);
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+
         trainingFromExerciseViewModel.getTrainingFromExercisesFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
             adapter.submitList(exercises);
         });
+
 
 
         //Button
@@ -102,7 +109,7 @@ public class TrainingFragment extends Fragment {
             public void onClick(View v) {
 
                 FragmentManager fragmentManager = getFragmentManager();
-                TabataTimerFragment myFragment = new TabataTimerFragment();
+                TabataTimerFragment myFragment = TabataTimerFragment.newInstance(getArguments().getInt("ID"));
                 fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack("myStack")
                         .commit();
@@ -230,11 +237,24 @@ public class TrainingFragment extends Fragment {
                     }
 
                 }catch (Exception e){}
-
-
-
         }
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+//            Collections.swap(Collections.singletonList(trainingFromExerciseViewModel.getTrainingFromExercisesFromTrainingNumber(getArguments().getInt("ID")), fromPosition, toPosition);
+            return false;
+        }
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 
 
 

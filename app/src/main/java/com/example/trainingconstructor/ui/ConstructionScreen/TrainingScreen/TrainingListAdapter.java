@@ -49,7 +49,7 @@ public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolde
             public void onClick(View v) {
 
                 FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
-                TrainingFragment myFragment = TrainingFragment.newInstance(current.getId(), current.getName());
+                TrainingFragment myFragment = TrainingFragment.newInstance(current.getId());
                 fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack("myStack")
                         .commit();
