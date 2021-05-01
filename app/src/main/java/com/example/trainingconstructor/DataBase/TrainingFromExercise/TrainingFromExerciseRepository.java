@@ -39,6 +39,10 @@ class TrainingFromExerciseRepository {
         return mTrainingFromExerciseDao.getTrainingFromExerciseFromTrainingId(trainingId);
     }
 
+    TrainingFromExercise getTrainingFromExerciseFromId(int trainingId) {
+        return mTrainingFromExerciseDao.getTrainingFromExerciseFromId(trainingId);
+    }
+
     void insert(TrainingFromExercise trainingFromExercise) {
         DataBase.databaseWriteExecutor.execute(() -> {
             mTrainingFromExerciseDao.insertTrainingFromExercise(trainingFromExercise);

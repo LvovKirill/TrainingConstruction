@@ -253,9 +253,9 @@ public class CreateTrainingFragment extends Fragment {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
-            Toast.makeText(getActivity(),"Successfuly Saved",Toast.LENGTH_SHORT).show();
 
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            Toast.makeText(getActivity(),"Successfully Saved",Toast.LENGTH_SHORT).show();
 
         try {
             outputStream.flush();

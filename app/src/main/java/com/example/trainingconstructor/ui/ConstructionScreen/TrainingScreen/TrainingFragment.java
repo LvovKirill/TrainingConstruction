@@ -17,19 +17,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.trainingconstructor.DataBase.DataBase;
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
 import com.example.trainingconstructor.DataBase.Training.TrainingViewModel;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExerciseViewModel;
+import com.example.trainingconstructor.databinding.FragmentTrainingBinding;
 import com.example.trainingconstructor.ui.ConstructionScreen.ExerciseScreen.MyExerciseFragment;
 import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddPoint.AddPointExersiseFragment;
 import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddPoint.AddPointExersisePagerFragment;
 import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddPoint.AddPointExersiseRestFragment;
 import com.example.trainingconstructor.ui.TabataTimerScreen.TabataTimerFragment;
 import com.example.trainingconstructor.R;
-import com.example.trainingconstructor.databinding.FragmentTrainingBinding;
+
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -86,6 +89,8 @@ public class TrainingFragment extends Fragment {
         binding.addPointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
+                binding.addTrainingLayout.startAnimation(animRotateIn_big);
                 FragmentManager fragmentManager = getFragmentManager();
                 AddPointExersiseFragment myFragment = AddPointExersiseFragment.newInstance(getArguments().getInt("ID"));
                 fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -97,6 +102,8 @@ public class TrainingFragment extends Fragment {
         binding.addRestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
+                binding.addRestLayout.startAnimation(animRotateIn_big);
                 FragmentManager fragmentManager = getFragmentManager();
                 AddPointExersiseRestFragment myFragment = new AddPointExersiseRestFragment();
                 fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -108,7 +115,6 @@ public class TrainingFragment extends Fragment {
         binding.startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FragmentManager fragmentManager = getFragmentManager();
                 TabataTimerFragment myFragment = TabataTimerFragment.newInstance(getArguments().getInt("ID"));
                 fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -155,6 +161,11 @@ public class TrainingFragment extends Fragment {
             pieArray.add(new PieEntry(dataCounter.countFoot, ic_leg));
         if(dataCounter.countSholders!=0)
             pieArray.add(new PieEntry(dataCounter.countSholders, ic_shoulder));
+
+        if(dataCounter.countPress==0 && dataCounter.countHand==0
+                && dataCounter.countBack==0 && dataCounter.countBreast==0 && dataCounter.countFoot==0 && dataCounter.countSholders==0){
+            binding.emptyPie.setText("Добавьте данные, чтобы увидеть аналитику");
+        }
 
         PieDataSet barDataSetForPieChart = new PieDataSet(pieArray, "pieArray");
 

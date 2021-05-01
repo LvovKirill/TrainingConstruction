@@ -1,6 +1,7 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddPoint;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,8 +54,8 @@ public class AddPointExersiseFragment extends Fragment implements View.OnClickLi
         return binding.getRoot();
     }
 
-    public void setText(int name){
-        binding.editText.setText(String.valueOf(name));
+    public void setText(int id){
+        binding.editText.setText(String.valueOf(id));
     }
 
     @Override

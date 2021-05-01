@@ -42,5 +42,8 @@ public interface TrainingFromExerciseDao {
     @Query("SELECT * FROM training_from_exercise_table WHERE trainingId = :trainingId")
     List<TrainingFromExercise> getTrainingFromExerciseFromTrainingId(int trainingId);
 
+    @Query("SELECT * FROM training_from_exercise_table WHERE trainingId = :id")
+    TrainingFromExercise getTrainingFromExerciseFromId(int id);
+
 
 }

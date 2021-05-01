@@ -33,6 +33,9 @@ public class TrainingFromExerciseViewModel extends AndroidViewModel {
     public LiveData<TrainingFromExercise> getOneTrainingFromExercises(int trainingID, int exerciseID) {
         return mRepository.getOneTrainingFromExercises(trainingID, exerciseID); }
 
+    public TrainingFromExercise getTrainingFromExerciseFromId(int id) {
+        return mRepository.getTrainingFromExerciseFromId(id); }
+
     public void insert(TrainingFromExercise trainingFromExercise) { mRepository.insert(trainingFromExercise); }
 
     public void deleteById(int id) { mRepository.deleteByID(id); }
