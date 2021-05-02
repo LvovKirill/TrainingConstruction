@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.renderscript.ScriptGroup;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
@@ -35,13 +36,14 @@ import com.example.trainingconstructor.R;
 import com.shrikanthravi.customnavigationdrawer2.data.MenuItem;
 import com.shrikanthravi.customnavigationdrawer2.widget.SNavigationDrawer;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         CreateTrainingFragment.FragmentListener, CreateProgramFragment.FragmentListener,
-        CreateExerciseFragment.FragmentListener, AddPointExersiseFragment.FragmentListener {
+        CreateExerciseFragment.FragmentListener, AddPointExersiseFragment.FragmentListener{
 
     SNavigationDrawer sNavigationDrawer;
     Class fragmentClass;
@@ -181,6 +183,20 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
+//    public void saveAsBitmap(View view, String filename) {
+//        view.setDrawingCacheEnabled(true);
+//        Bitmap bitmap = view.getDrawingCache();
+//        try {
+//            FileOutputStream out = openFileOutput(filename, MODE_PRIVATE);
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+//            out.close();
+//        } catch (Exception ignored) {
+//        }
+//        bitmap.recycle();
+//    }
+
+
+
 
     //связь
 
@@ -205,4 +221,16 @@ public class MainActivity extends AppCompatActivity implements
     public void onInputTrainingFromExerciseSent(TrainingFromExercise trainingFromExercise) {
         TrainingFragment.addTrainingFromExercise(trainingFromExercise);
     }
+
+//    @Override
+//    public void saveImage(String filename) {
+//        try {
+//            FileOutputStream out = openFileOutput(filename, MODE_PRIVATE);
+//
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+//            out.close();
+//        } catch (Exception ignored) {
+//        }
+//        bitmap.recycle();
+//    }
 }

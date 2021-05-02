@@ -38,6 +38,13 @@
         <item name="android:maxHeight">20dp</item>
     </style>
 
+
+        <style name="flashRatingBar" parent="@android:style/Widget.RatingBar">
+<!--            <item name="android:progressDrawable">@drawable/flash_rating_bar</item>-->
+            <item name="android:minHeight">23dip</item>
+            <item name="android:maxHeight">25dip</item>
+        </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 

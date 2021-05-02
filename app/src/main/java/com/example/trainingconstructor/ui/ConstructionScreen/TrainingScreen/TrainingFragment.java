@@ -1,5 +1,6 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -46,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TrainingFragment extends Fragment {
+public class TrainingFragment extends Fragment implements View.OnClickListener, View.OnTouchListener{
 
     FragmentTrainingBinding binding;
     public static TrainingFromExerciseViewModel trainingFromExerciseViewModel;
@@ -61,6 +63,7 @@ public class TrainingFragment extends Fragment {
         return trainingFragment;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,44 +88,13 @@ public class TrainingFragment extends Fragment {
             adapter.submitList(exercises);
         });
 
-        //Button
-        binding.addPointButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
-                binding.addTrainingLayout.startAnimation(animRotateIn_big);
-                FragmentManager fragmentManager = getFragmentManager();
-                AddPointExersiseFragment myFragment = AddPointExersiseFragment.newInstance(getArguments().getInt("ID"));
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
-                        .commit();
-            }
-        });
+        binding.addPointButton.setOnClickListener(this);
+        binding.addRestButton.setOnClickListener(this);
+        binding.startButton.setOnClickListener(this);
 
-        binding.addRestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
-                binding.addRestLayout.startAnimation(animRotateIn_big);
-                FragmentManager fragmentManager = getFragmentManager();
-                AddPointExersiseRestFragment myFragment = new AddPointExersiseRestFragment();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
-                        .commit();
-            }
-        });
-
-        binding.startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                TabataTimerFragment myFragment = TabataTimerFragment.newInstance(getArguments().getInt("ID"));
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
-                        .commit();
-            }
-
-        });
+        binding.addPointButton.setOnTouchListener(this);
+        binding.addRestButton.setOnTouchListener(this);
+        binding.startButton.setOnTouchListener(this);
 
         return binding.getRoot();
     }
@@ -164,7 +136,7 @@ public class TrainingFragment extends Fragment {
 
         if(dataCounter.countPress==0 && dataCounter.countHand==0
                 && dataCounter.countBack==0 && dataCounter.countBreast==0 && dataCounter.countFoot==0 && dataCounter.countSholders==0){
-            binding.emptyPie.setText("Добавьте данные, чтобы увидеть аналитику");
+            binding.emptyPie.setText(getString(R.string.emptyPie));
         }
 
         PieDataSet barDataSetForPieChart = new PieDataSet(pieArray, "pieArray");
@@ -206,6 +178,8 @@ public class TrainingFragment extends Fragment {
     public static void addTrainingFromExercise(TrainingFromExercise trainingFromExercise){
         trainingFromExerciseViewModel.insert(trainingFromExercise);
     }
+
+
 
     class DecimalRemover extends PercentFormatter {
         protected DecimalFormat mFormat;
@@ -268,6 +242,65 @@ public class TrainingFragment extends Fragment {
 
         }
     };
+
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        Animation scaleUp = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
+        Animation scaleDown = AnimationUtils.loadAnimation(getActivity(), R.anim.down_button_anim);
+
+        if(binding.addPointButton.equals(v)) {
+            if(event.getAction()==MotionEvent.ACTION_UP){}
+//                binding.addTrainingLayout.startAnimation(scaleUp);
+            else if(event.getAction()==MotionEvent.ACTION_DOWN)
+                binding.addTrainingLayout.startAnimation(scaleUp);
+
+        } else if (binding.addRestButton.equals(v)) {
+            if(event.getAction()==MotionEvent.ACTION_UP){}
+//                binding.addRestLayout.startAnimation(scaleUp);
+            else if(event.getAction()==MotionEvent.ACTION_DOWN)
+                binding.addRestLayout.startAnimation(scaleUp);
+
+        } else if (binding.startButton.equals(v)) {
+            if(event.getAction()==MotionEvent.ACTION_UP){}
+//                binding.startButton.startAnimation(scaleUp);
+            else if(event.getAction()==MotionEvent.ACTION_DOWN)
+                binding.startButton.startAnimation(scaleUp);
+
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        if (binding.addPointButton.equals(v)) {
+//            Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
+//            binding.addTrainingLayout.startAnimation(animRotateIn_big);
+            FragmentManager fragmentManager = getFragmentManager();
+            AddPointExersiseFragment myFragment = AddPointExersiseFragment.newInstance(getArguments().getInt("ID"));
+            fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                    .addToBackStack("myStack")
+                    .commit();
+        } else if (binding.addRestButton.equals(v)) {
+//            Animation animRotateIn_big_rest = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
+//            binding.addRestLayout.startAnimation(animRotateIn_big_rest);
+            FragmentManager fragmentManagerRest = getFragmentManager();
+            AddPointExersiseRestFragment myFragmentRest = new AddPointExersiseRestFragment();
+            fragmentManagerRest.beginTransaction().add(R.id.frameLayout, myFragmentRest).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                    .addToBackStack("myStack")
+                    .commit();
+        } else if (binding.startButton.equals(v)) {
+            FragmentManager fragmentManagerStart = getFragmentManager();
+            TabataTimerFragment myFragmentStart = TabataTimerFragment.newInstance(getArguments().getInt("ID"));
+            fragmentManagerStart.beginTransaction().add(R.id.frameLayout, myFragmentStart).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                    .addToBackStack("myStack")
+                    .commit();
+        }
+
+    }
 
 
 

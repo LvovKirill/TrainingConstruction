@@ -2,11 +2,14 @@ package com.example.trainingconstructor.ui.ConstructionScreen.ProgramScreen;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +40,7 @@ public class ProgramListAdapter extends ListAdapter<Program, ProgramViewHolder> 
     @Override
     public void onBindViewHolder(ProgramViewHolder holder, int position) {
         Program current = getItem(position);
-        holder.bind(current.getName());
+        holder.bind(current.getName(), current.getComplexity());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,15 +117,29 @@ public class ProgramListAdapter extends ListAdapter<Program, ProgramViewHolder> 
 class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     private final TextView nameProgram;
+    private final ImageView oneFlash;
+    private final ImageView twoFlash;
+    private final ImageView threeFlash;
 
     private ProgramViewHolder(View itemView) {
         super(itemView);
         nameProgram = itemView.findViewById(R.id.name_program);
+        oneFlash = itemView.findViewById(R.id.oneFlash);
+        twoFlash = itemView.findViewById(R.id.twoFlash);
+        threeFlash = itemView.findViewById(R.id.threeFlash);
         itemView.setOnClickListener(this);
     }
 
-    public void bind(String text) {
+    public void bind(String text, Float complexity) {
         nameProgram.setText(text);
+        if(complexity==1.0){oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(complexity==2.0){
+            oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));
+            twoFlash.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(complexity==3.0){
+            oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));
+            twoFlash.setColorFilter(Color.argb(255, 255, 255, 255));
+            threeFlash.setColorFilter(Color.argb(255, 255, 255, 255));}
     }
 
     static ProgramViewHolder create(ViewGroup parent) {

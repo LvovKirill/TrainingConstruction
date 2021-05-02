@@ -60,11 +60,11 @@ public abstract class DataBase extends RoomDatabase {
                 ProgramDao dao = INSTANCE.programDao();
                 dao.deleteAll();
 
-                Program program = new Program("Воин спарты", "Описание", 1, 22);
+                Program program = new Program("Воин спарты", "Описание", 1, 22, 2);
                 dao.insertProgram(program);
-                program = new Program("Новичок 1.0", "Описание", 3, 14);
+                program = new Program("Новичок 1.0", "Описание", 3, 14, 1);
                 dao.insertProgram(program);
-                program = new Program("Новичок 1.0", "Описание", 3, 14);
+                program = new Program("Новичок 1.0", "Описание", 3, 14, 3);
                 dao.insertProgram(program);
             });
 

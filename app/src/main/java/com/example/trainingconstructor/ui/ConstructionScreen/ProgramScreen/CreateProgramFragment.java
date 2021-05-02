@@ -1,9 +1,15 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.ProgramScreen;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -34,6 +40,7 @@ public class CreateProgramFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentCreateProgramBinding.inflate(inflater, container, false);
 
+
         binding.createProgramButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +48,7 @@ public class CreateProgramFragment extends Fragment {
 
                 String name = String.valueOf(binding.editProgramName.getText());
                 String about = String.valueOf(binding.editProgramAbout.getText());
+                Float complexity = binding.ratingBar.getStepSize();
                 boolean press_type = binding.pressCheckBox.isChecked();
                 boolean hands_type = binding.armCheckBox.isChecked();
                 boolean foot_type = binding.legCheckBox.isChecked();
@@ -54,7 +62,7 @@ public class CreateProgramFragment extends Fragment {
                 }else if (!(press_type == hands_type == foot_type == back_type == breast_type)){
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
-                    Program program = new Program(name, about, 3,5);
+                    Program program = new Program(name, about, 3,5, complexity);
                     Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputProgramSent(program);

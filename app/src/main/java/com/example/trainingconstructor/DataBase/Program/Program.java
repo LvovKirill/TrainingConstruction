@@ -13,24 +13,25 @@ import androidx.room.PrimaryKey;
         private String about;
         private int cycle;
         private int count_training;
+        private float complexity;
 
-        public Program(int id, String name, String about, int cycle, int count_training) {
+        public Program(int id, String name, String about, int cycle, int count_training, float complexity) {
             this.id = id;
             this.name = name;
             this.about = about;
             this.cycle = cycle;
             this.count_training = count_training;
-
+            this.complexity = complexity;
         }
 
 
         @Ignore
-        public Program(String name, String about, int cycle, int count_training) {
+        public Program(String name, String about, int cycle, int count_training, float complexity) {
             this.name = name;
             this.about = about;
             this.cycle = cycle;
             this.count_training = count_training;
-
+            this.complexity = complexity;
         }
 
         public String getName() {
@@ -67,5 +68,13 @@ import androidx.room.PrimaryKey;
 
         public int getId() {
             return id;
+        }
+
+        public float getComplexity() {
+            return complexity;
+        }
+
+        public void setComplexity(float complexity) {
+            this.complexity = complexity;
         }
     }

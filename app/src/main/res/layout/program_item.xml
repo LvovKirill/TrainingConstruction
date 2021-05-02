@@ -83,18 +83,21 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_flash"
-                        app:tint="@color/white" />
-
-                    <ImageView
+                        android:id="@+id/oneFlash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_flash"
                         app:tint="@color/transparent_wite" />
 
                     <ImageView
+                        android:id="@+id/twoFlash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_flash"
+                        app:tint="@color/transparent_wite" />
+
+                    <ImageView
+                        android:id="@+id/threeFlash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_flash"

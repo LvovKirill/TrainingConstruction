@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.trainingconstructor.DataBase.Program.Program;
 import com.example.trainingconstructor.DataBase.Training.Training;
 import com.example.trainingconstructor.R;
 import com.example.trainingconstructor.databinding.FragmentCreateTrainingBinding;
@@ -49,6 +50,7 @@ import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 public class CreateTrainingFragment extends Fragment {
 
     private FragmentListener listener;
+    private SaveImage saveImage;
     static Bitmap photo;
     static final int GALLERY_REQUEST = 1;
     private static int REQUEST_CODE = 100;
@@ -59,6 +61,10 @@ public class CreateTrainingFragment extends Fragment {
 
     public interface FragmentListener{
         void onInputTrainingSent(Training training);
+    }
+
+    public interface SaveImage{
+        void saveImage(String filename);
     }
 
     public static CreateTrainingFragment newInstance() {
@@ -90,11 +96,12 @@ public class CreateTrainingFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
                     Training training = new Training(name, press_type, hands_type, foot_type, back_type, breast_type, sholders_type);
-                    onLoadImage();
+//                    binding.imageCreateTraining.setDrawingCacheEnabled(true);
+//                    Bitmap bitmap = R.drawable.sport_men.getDrawingCache();
+                    saveImage.saveImage( "training12345");
 
 
                     if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                        saveImage();
 
                         listener.onInputTrainingSent(training);
 
