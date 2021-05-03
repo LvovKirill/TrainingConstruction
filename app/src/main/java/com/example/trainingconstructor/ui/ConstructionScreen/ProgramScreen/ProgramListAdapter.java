@@ -40,7 +40,7 @@ public class ProgramListAdapter extends ListAdapter<Program, ProgramViewHolder> 
     @Override
     public void onBindViewHolder(ProgramViewHolder holder, int position) {
         Program current = getItem(position);
-        holder.bind(current.getName(), current.getComplexity());
+        holder.bind(current.getName(), current.getComplexity(), current.getCycle());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +117,7 @@ public class ProgramListAdapter extends ListAdapter<Program, ProgramViewHolder> 
 class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     private final TextView nameProgram;
+    private final TextView cycleTextView;
     private final ImageView oneFlash;
     private final ImageView twoFlash;
     private final ImageView threeFlash;
@@ -127,11 +128,15 @@ class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         oneFlash = itemView.findViewById(R.id.oneFlash);
         twoFlash = itemView.findViewById(R.id.twoFlash);
         threeFlash = itemView.findViewById(R.id.threeFlash);
+        cycleTextView = itemView.findViewById(R.id.cycleTextView);
+
         itemView.setOnClickListener(this);
     }
 
-    public void bind(String text, Float complexity) {
+    public void bind(String text, Float complexity, int cycle) {
         nameProgram.setText(text);
+        cycleTextView.setText(String.valueOf(cycle) + " недели");
+
         if(complexity==1.0){oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));}
         if(complexity==2.0){
             oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));

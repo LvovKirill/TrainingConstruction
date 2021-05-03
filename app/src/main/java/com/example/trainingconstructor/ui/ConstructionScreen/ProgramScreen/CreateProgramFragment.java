@@ -48,7 +48,8 @@ public class CreateProgramFragment extends Fragment {
 
                 String name = String.valueOf(binding.editProgramName.getText());
                 String about = String.valueOf(binding.editProgramAbout.getText());
-                Float complexity = binding.ratingBar.getStepSize();
+                Float complexity = binding.ratingBar.getRating();
+                int cycle = Integer.parseInt(binding.counterCycle.getNumber());
                 boolean press_type = binding.pressCheckBox.isChecked();
                 boolean hands_type = binding.armCheckBox.isChecked();
                 boolean foot_type = binding.legCheckBox.isChecked();
@@ -62,7 +63,7 @@ public class CreateProgramFragment extends Fragment {
                 }else if (!(press_type == hands_type == foot_type == back_type == breast_type)){
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
-                    Program program = new Program(name, about, 3,5, complexity);
+                    Program program = new Program(name, about, cycle,5, complexity);
                     Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputProgramSent(program);

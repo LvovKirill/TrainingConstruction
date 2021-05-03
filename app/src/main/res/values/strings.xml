@@ -66,5 +66,7 @@
     <string name="time_and_min">время (мин)</string>
     <string name="emptyPie">Добавьте данные, чтобы увидеть аналитику</string>
     <string name="complexity_of_the_program">Сложность программы</string>
+    <string name="program_cycle">Цикл программы</string>
+    <string name="weeks">недели</string>
 
 </resources>
