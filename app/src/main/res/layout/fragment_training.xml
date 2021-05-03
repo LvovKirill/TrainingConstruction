@@ -53,7 +53,10 @@
                 </RelativeLayout>
 
 
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -65,11 +68,14 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="10dp"
+                            android:layout_marginVertical="30dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_weight="10"
                             android:fadingEdgeLength="2dp"
-                            android:layout_margin="30dp">
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -80,8 +86,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textColor="@color/blue"
-                                    android:text="@string/time"/>
+                                    android:text="@string/time"
+                                    android:textColor="@color/blue" />
 
                                 <TextView
                                     android:id="@+id/time_training"
@@ -89,20 +95,20 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:text="23"
-                                    android:textSize="50dp"
-                                    android:textColor="@color/blue"/>
+                                    android:textColor="@color/blue"
+                                    android:textSize="50dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
-
 
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_margin="30dp"
-                            app:cardElevation="10dp"
+                            android:layout_marginVertical="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="10"
                             app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp"
                             tools:ignore="MissingConstraints">
 
                             <LinearLayout
@@ -129,21 +135,22 @@
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
+                        <Button
+                            android:id="@+id/startButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/btn_rounder_corner"
+                            android:gravity="center"
+                            android:rotation="90"
+                            android:text="@string/start"
+                            android:textColor="@color/white" />
+
                     </TableRow>
 
-                <Button
-                    android:id="@+id/startButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/start"
-                    android:background="@drawable/btn_rounder_corner"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:paddingHorizontal="40dp"/>
-
-
+                </LinearLayout>
 
 
                 <RelativeLayout
