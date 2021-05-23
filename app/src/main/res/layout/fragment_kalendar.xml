@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.CalendarScreen.CalendarFragment">
 
-    <CalendarView
-        android:id="@+id/kalendar"
-        android:dateTextAppearance="@style/CalenderViewDateCustomText"
-        android:theme="@style/CalenderViewCustom"
-        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+    <org.naishadhparmar.zcustomcalendar.CustomCalendar
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weekSeparatorLineColor="@color/black"
-        android:weekNumberColor="@color/black" />
+        android:layout_height="wrap_content"
+        app:day_of_week_length="1"
+        app:day_of_week_start_from="sunday"
+        app:month_year_format="full_month__with_year"
+        app:row_height="50dp"
+        app:left_button_src="@drawable/ic_baseline_keyboard_arrow_left_24"
+        app:right_button_src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 
-</FrameLayout>
+</LinearLayout>

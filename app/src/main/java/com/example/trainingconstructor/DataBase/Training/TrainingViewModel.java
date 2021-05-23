@@ -21,7 +21,7 @@ public class TrainingViewModel extends AndroidViewModel {
 
     public LiveData<List<Training>> getAllTrainings() { return mAllTrainings; }
 
-    public void getTrainingByID(int id) { mRepository.getTrainingByID(id); }
+    public Training getTrainingByID(int id) { return mRepository.getTrainingByID(id); }
 
     public void insert(Training training) { mRepository.insert(training); }
 

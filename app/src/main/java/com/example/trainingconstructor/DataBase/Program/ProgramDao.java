@@ -28,6 +28,9 @@ public interface ProgramDao {
     @Query("DELETE FROM program_table WHERE id = :id")
     void deleteById(int id);
 
+    @Query("SELECT*FROM program_table WHERE id = :id")
+    Program getProgramById(int id);
+
     @Query("SELECT*FROM program_table")
     List<Program> getAllProgram();
 

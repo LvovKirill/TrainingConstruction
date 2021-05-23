@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
@@ -23,6 +24,9 @@ public interface TrainingFromExerciseDao {
 
     @Delete
     void delete(TrainingFromExercise trainingFromExercise);
+
+    @Update
+    int updateTrainingFromExercise(TrainingFromExercise trainingFromExercise);
 
     @Query("DELETE FROM training_from_exercise_table")
     void deleteAll();

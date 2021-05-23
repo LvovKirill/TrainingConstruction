@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
 import com.example.trainingconstructor.R;
 import com.example.trainingconstructor.databinding.FragmentCreateExerciseBinding;
+import com.example.trainingconstructor.ui.ConstructionScreen.GalleryScreen.GalleryFragment;
 
 
 public class CreateExerciseFragment extends Fragment {
@@ -22,6 +23,7 @@ public class CreateExerciseFragment extends Fragment {
     private com.example.trainingconstructor.ui.ConstructionScreen.ExerciseScreen.CreateExerciseFragment.FragmentListener listener;
 
     FragmentCreateExerciseBinding binding;
+    static int imgID=R.drawable.sport_men;
     public static final String EXTRA_REPLY = "com.example.android.traininglistsql.REPLY";
 
     public interface FragmentListener{
@@ -61,20 +63,33 @@ public class CreateExerciseFragment extends Fragment {
                 }else if (!press_type && !hands_type && !foot_type && !back_type && !breast_type && !shoulder_type){
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
-                    Exercise exercise = new Exercise(name, press_type, hands_type, foot_type, back_type, breast_type, shoulder_type);
+                    Exercise exercise = new Exercise(name, press_type, hands_type, foot_type, back_type, breast_type, shoulder_type, imgID);
                     Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputExerciseSent(exercise);
 
+                    getActivity().onBackPressed();
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    ExerciseFragment myFragment = new ExerciseFragment();
-                    fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                            .addToBackStack("myStack")
-                            .commit();
+
+//                    FragmentManager fragmentManager = getFragmentManager();
+//                    ExerciseFragment myFragment = new ExerciseFragment();
+//                    fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+//                            .addToBackStack("myStack")
+//                            .commit();
 
                 }
 
+            }
+        });
+
+        binding.defaultGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                GalleryFragment myFragment = GalleryFragment.newInstance("exercise");
+                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment, "exerciseFrag").setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack("myStack")
+                        .commit();
             }
         });
 
@@ -94,5 +109,19 @@ public class CreateExerciseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener=null;
+    }
+
+    public static void setImgID(int imgID) {
+        CreateExerciseFragment.imgID = imgID;
+    }
+
+    public static int getImgID() {
+        return imgID;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.imageCreateExercise.setImageResource(imgID);
     }
 }

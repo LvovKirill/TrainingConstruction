@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.renderscript.ScriptGroup;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
 import com.example.trainingconstructor.DataBase.Program.Program;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
+import com.example.trainingconstructor.databinding.FragmentCreateTrainingBinding;
 import com.example.trainingconstructor.ui.ConstructionScreen.ExerciseScreen.CreateExerciseFragment;
 import com.example.trainingconstructor.ui.ConstructionScreen.ExerciseScreen.MyExerciseFragment;
 import com.example.trainingconstructor.ui.ConstructionScreen.ProgramScreen.CreateProgramFragment;
@@ -36,19 +31,22 @@ import com.example.trainingconstructor.R;
 import com.shrikanthravi.customnavigationdrawer2.data.MenuItem;
 import com.shrikanthravi.customnavigationdrawer2.widget.SNavigationDrawer;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         CreateTrainingFragment.FragmentListener, CreateProgramFragment.FragmentListener,
-        CreateExerciseFragment.FragmentListener, AddPointExersiseFragment.FragmentListener{
+        CreateExerciseFragment.FragmentListener{
 
     SNavigationDrawer sNavigationDrawer;
     Class fragmentClass;
     public static Fragment fragment;
     public TrainingViewModel trainingViewModel;
+    FragmentCreateTrainingBinding binding;
+
+    OutputStream outputStream;
 
     public TrainingViewModel getTrainingViewModel() {
         return trainingViewModel;
@@ -70,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements
         List<MenuItem> menuItems = new ArrayList<>();
 
         menuItems.add(new MenuItem(getString(R.string.constraction),R.drawable.sport_men));
-        menuItems.add(new MenuItem(getString(R.string.kalendar),R.drawable.sport_men));
-        menuItems.add(new MenuItem(getString(R.string.statistics),R.drawable.sport_men));
-        menuItems.add(new MenuItem(getString(R.string.settings),R.drawable.sport_men));
+        menuItems.add(new MenuItem(getString(R.string.kalendar),R.drawable.calendar_image));
+        menuItems.add(new MenuItem(getString(R.string.statistics),R.drawable.statistic_image));
+        menuItems.add(new MenuItem(getString(R.string.settings),R.drawable.settings_image));
 
         sNavigationDrawer.setMenuItemList(menuItems);
         fragmentClass =  ConstructionFragment.class;
@@ -217,20 +215,50 @@ public class MainActivity extends AppCompatActivity implements
         MyExerciseFragment.addExercise(exercise);
     }
 
-    @Override
-    public void onInputTrainingFromExerciseSent(TrainingFromExercise trainingFromExercise) {
-        TrainingFragment.addTrainingFromExercise(trainingFromExercise);
+
+    class TrainingFromExerciseComparator implements Comparator<TrainingFromExercise> {
+        @Override
+        public int compare(TrainingFromExercise o1, TrainingFromExercise o2) {
+            if(o1.getNumberInTraining()<o2.getNumberInTraining()) return -1;
+            else if (o1.getNumberInTraining()>o2.getNumberInTraining()) return 1;
+            else return 0;
+        }
     }
 
 //    @Override
-//    public void saveImage(String filename) {
-//        try {
-//            FileOutputStream out = openFileOutput(filename, MODE_PRIVATE);
+//    public void saveImage(Bitmap bitmap) {
 //
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//            out.close();
-//        } catch (Exception ignored) {
+//        File dir = new File(Environment.getExternalStorageDirectory(),"SaveImage");
+//
+//        if (!dir.exists()){
+//
+//            dir.mkdir();
+//
 //        }
-//        bitmap.recycle();
+
+//        BitmapDrawable drawable = (BitmapDrawable) getDrawable(R.drawable.sport_men);
+//        Bitmap bitmap = drawable.getBitmap();
+
+
+
+//        File file = new File(dir,System.currentTimeMillis()+".jpg");
+//        try {
+//            outputStream = new FileOutputStream(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        bitmap.compress(Bitmap.CompressFormat.PNG,10,outputStream);
+//        Toast.makeText(MainActivity.this,"Successfuly Saved",Toast.LENGTH_SHORT).show();
+//
+//        try {
+//            outputStream.flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            outputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //    }
 }

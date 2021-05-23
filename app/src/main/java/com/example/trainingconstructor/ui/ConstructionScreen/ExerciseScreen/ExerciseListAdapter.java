@@ -45,11 +45,11 @@ public class ExerciseListAdapter extends ListAdapter<Exercise, ExerciseViewHolde
             @Override
             public void onClick(View v) {
 
-                FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
-                ExerciseFragment myFragment = new ExerciseFragment();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
-                        .commit();
+//                FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
+//                ExerciseFragment myFragment = new ExerciseFragment();
+//                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+//                        .addToBackStack("myStack")
+//                        .commit();
 
             }
         });
@@ -117,13 +117,13 @@ public class ExerciseListAdapter extends ListAdapter<Exercise, ExerciseViewHolde
 class ExerciseViewHolder extends RecyclerView.ViewHolder   {
 
     private final TextView nameExercise;
-
     private final ImageView icPress;
     private final ImageView icArm;
     private final ImageView icBack;
     private final ImageView icChest;
     private final ImageView icLeg;
     private final ImageView icSholders;
+    private final ImageView imageView;
 
     private ExerciseViewHolder(View itemView) {
         super(itemView);
@@ -135,10 +135,13 @@ class ExerciseViewHolder extends RecyclerView.ViewHolder   {
         icChest = itemView.findViewById(R.id.ic_chest);
         icLeg = itemView.findViewById(R.id.ic_leg);
         icSholders = itemView.findViewById(R.id.ic_sholders);
+        imageView = itemView.findViewById(R.id.imageExercise);
+
     }
 
     public void bind(Exercise exercise) {
         nameExercise.setText(exercise.getName());
+        imageView.setImageResource(exercise.getImg_id());
         if(exercise.isPress_type()){ icPress.setColorFilter(Color.argb(255, 255, 255, 255));}
         if(exercise.isHands_type()){ icArm.setColorFilter(Color.argb(255, 255, 255, 255));}
         if(exercise.isBack_type()){ icBack.setColorFilter(Color.argb(255, 255, 255, 255));}

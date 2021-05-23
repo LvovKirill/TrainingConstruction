@@ -1,6 +1,7 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.ProgramScreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -9,6 +10,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,11 +23,13 @@ import android.widget.Toast;
 import com.example.trainingconstructor.DataBase.Program.Program;
 import com.example.trainingconstructor.R;
 import com.example.trainingconstructor.databinding.FragmentCreateProgramBinding;
+import com.example.trainingconstructor.ui.ConstructionScreen.GalleryScreen.GalleryFragment;
 
 
 public class CreateProgramFragment extends Fragment {
 
     private CreateProgramFragment.FragmentListener listener;
+    protected static int imgId = R.drawable.sport_men;
 
     FragmentCreateProgramBinding binding;
     public static final String EXTRA_REPLY = "com.example.android.traininglistsql.REPLY";
@@ -63,25 +67,53 @@ public class CreateProgramFragment extends Fragment {
                 }else if (!(press_type == hands_type == foot_type == back_type == breast_type)){
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
-                    Program program = new Program(name, about, cycle,5, complexity);
+                    Program program = new Program(name, about, cycle,5, complexity, imgId);
                     Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputProgramSent(program);
 
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    ProgramFragment myFragment = new ProgramFragment();
-                    fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                            .addToBackStack("myStack")
-                            .commit();
+//                    FragmentManager fragmentManager = getFragmentManager();
+//                    ProgramFragment myFragment = new ProgramFragment();
+//                    fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+//                            .addToBackStack("myStack")
+//                            .commit();
+                   getActivity().getSupportFragmentManager().findFragmentByTag("myProgramFrag").onStart();
+
+                    getActivity().onBackPressed();
 
                 }
 
             }
         });
 
+        binding.gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, 1);
+
+            }
+        });
+
+        binding.defaultGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                GalleryFragment myFragment = GalleryFragment.newInstance("program");
+                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment, "trainingFrag").setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack("myStack")
+                        .commit();
+            }
+        });
+
 
         return binding.getRoot();
+    }
+
+    public static void setImgId(int imgId) {
+        CreateProgramFragment.imgId = imgId;
     }
 
     @Override
@@ -96,5 +128,11 @@ public class CreateProgramFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         listener=null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        binding.imageCreateProgram.setImageResource(imgId);
     }
 }

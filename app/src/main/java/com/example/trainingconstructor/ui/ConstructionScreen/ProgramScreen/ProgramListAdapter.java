@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +41,16 @@ public class ProgramListAdapter extends ListAdapter<Program, ProgramViewHolder> 
     @Override
     public void onBindViewHolder(ProgramViewHolder holder, int position) {
         Program current = getItem(position);
-        holder.bind(current.getName(), current.getComplexity(), current.getCycle());
+        holder.bind(current.getName(), current.getComplexity(), current.getCycle(), current.getImg_id());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
-                ProgramFragment myFragment = new ProgramFragment();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                ProgramFragment myFragment = ProgramFragment.newInstance(current.getId());
+                Log.d("MyTag", String.valueOf(current.getId()));
+                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment, "programFrag").setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack("myStack")
                         .commit();
 
@@ -121,6 +123,7 @@ class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     private final ImageView oneFlash;
     private final ImageView twoFlash;
     private final ImageView threeFlash;
+    private final ImageView imageProgram;
 
     private ProgramViewHolder(View itemView) {
         super(itemView);
@@ -129,13 +132,16 @@ class ProgramViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         twoFlash = itemView.findViewById(R.id.twoFlash);
         threeFlash = itemView.findViewById(R.id.threeFlash);
         cycleTextView = itemView.findViewById(R.id.cycleTextView);
+        imageProgram = itemView.findViewById(R.id.imageProgramItem);
 
         itemView.setOnClickListener(this);
     }
 
-    public void bind(String text, Float complexity, int cycle) {
+    public void bind(String text, Float complexity, int cycle, int imgID) {
         nameProgram.setText(text);
         cycleTextView.setText(String.valueOf(cycle) + " недели");
+        imageProgram.setImageResource(imgID);
+
 
         if(complexity==1.0){oneFlash.setColorFilter(Color.argb(255, 255, 255, 255));}
         if(complexity==2.0){

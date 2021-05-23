@@ -86,7 +86,7 @@
                         android:layout_height="21dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_chest"
+                        android:src="@drawable/ic_press"
                         app:tint="@color/blue" />
 
                     <TextView

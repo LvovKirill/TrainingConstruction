@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageProgramItem"
+                android:id="@+id/imageTFEItem"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_alignParentTop="true"

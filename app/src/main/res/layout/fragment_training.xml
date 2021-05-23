@@ -9,6 +9,7 @@
     tools:context=".ui.ConstructionScreen.TrainingScreen.TrainingFragment">
 
     <ImageView
+        android:id="@+id/headerTraining"
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:scaleType="centerCrop"

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageProgramItem"
+                android:id="@+id/image_training_item"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_alignParentTop="true"
@@ -65,7 +65,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="2dp"
-                        android:src="@drawable/ic_chest"
+                        android:src="@drawable/ic_press"
                         app:tint="@color/transparent_wite" />
 
                     <ImageView
@@ -130,6 +130,7 @@
                         android:text="@string/time"/>
 
                     <TextView
+                        android:id="@+id/time_of_training"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"

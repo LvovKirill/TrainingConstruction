@@ -28,9 +28,11 @@ import com.example.trainingconstructor.DataBase.Training.Training;
     private int weight;
     private int item;
     private int time;
+    private int type;
+    private int numberInTraining;
 
 
-        public TrainingFromExercise(int id, int exerciseId, int trainingId, int repeat, int weight, int time, int item) {
+        public TrainingFromExercise(int id, int exerciseId, int trainingId, int repeat, int weight, int time, int item, int type, int numberInTraining) {
             this.id = id;
             this.exerciseId = exerciseId;
             this.trainingId = trainingId;
@@ -38,16 +40,20 @@ import com.example.trainingconstructor.DataBase.Training.Training;
             this.weight = weight;
             this.item = item;
             this.time = time;
+            this.type = type;
+            this.numberInTraining = numberInTraining;
         }
 
         @Ignore
-    public TrainingFromExercise(int exerciseId, int trainingId, int repeat, int weight, int time, int item) {
+    public TrainingFromExercise(int exerciseId, int trainingId, int repeat, int weight, int time, int item, int type, int numberInTraining) {
         this.exerciseId = exerciseId;
         this.trainingId = trainingId;
         this.repeat = repeat;
         this.weight = weight;
         this.item = item;
         this.time = time;
+        this.type = type;
+        this.numberInTraining = numberInTraining;
     }
 
         public int getExerciseId() {
@@ -98,11 +104,27 @@ import com.example.trainingconstructor.DataBase.Training.Training;
         this.time = time;
     }
 
-        public int getId() {
+    public int getId() {
             return id;
         }
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public int getNumberInTraining() {
+            return numberInTraining;
+        }
+
+        public void setNumberInTraining(int numberInTraining) {
+            this.numberInTraining = numberInTraining;
         }
     }

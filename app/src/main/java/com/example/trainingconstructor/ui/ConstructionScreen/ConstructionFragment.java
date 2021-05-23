@@ -118,16 +118,14 @@ public class ConstructionFragment extends Fragment implements View.OnClickListen
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("ErrorRV", "Stop");
-        onDetach();
+    public void update(){
+        PagerAdapter adapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+        binding.viewPagerInConstructionFragment.setAdapter(adapter);
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        Log.d("ErrorRV", "onAttach");
+    public void onStart() {
+        super.onStart();
+        update();
     }
 }

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageProgramItem"
+                android:id="@+id/imageItem"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/transparent_black"/>
+                android:background="@color/very_transparent_black2"/>
 
             <TextView
                 android:id="@+id/name_exercise"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrainingConstructor</string>
+    <string name="app_name">Sport board</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -68,5 +68,8 @@
     <string name="complexity_of_the_program">Сложность программы</string>
     <string name="program_cycle">Цикл программы</string>
     <string name="weeks">недели</string>
+    <string name="week">неделя</string>
+    <string name="activity">Активность</string>
+    <string name="plan">запланировать</string>
 
 </resources>

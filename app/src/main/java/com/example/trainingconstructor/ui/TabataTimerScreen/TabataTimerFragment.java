@@ -52,7 +52,7 @@ public class TabataTimerFragment extends Fragment{
 
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
-    private int currentPosition=0;
+    private int currentPosition=1;
     List<TrainingFromExercise> list;
 
     private TextToSpeech tts;
@@ -74,7 +74,9 @@ public class TabataTimerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTabataTimerBinding.inflate(inflater, container, false);
 
-        final TrainingFromExerciseAdapter adapter = new TrainingFromExerciseAdapter(new TrainingFromExerciseAdapter.TrainingFromExerciseDiff(), getContext());
+        List<TrainingFromExercise> list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+
+        final TrainingFromExerciseAdapter adapter = new TrainingFromExerciseAdapter(list);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.isScrollbarFadingEnabled();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -82,9 +84,9 @@ public class TabataTimerFragment extends Fragment{
         trainingFromExerciseViewModel = new ViewModelProvider(this).get(TrainingFromExerciseViewModel.class);
         list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
 
-        DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
-            adapter.submitList(exercises);
-        });
+//        DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
+//            adapter.submitList(exercises);
+//        });
 
 //        mTimeLeftInMillis =
 
@@ -137,7 +139,11 @@ public class TabataTimerFragment extends Fragment{
 
 
     private void startTimer() {
-        String currentName = DataBase.getDatabase(getActivity()).exerciseDao().getNameByID(list.get(currentPosition).getExerciseId());
+        list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+        String currentName;
+        if(list.get(currentPosition).getExerciseId()!=0) {
+            currentName = DataBase.getDatabase(getActivity()).exerciseDao().getNameByID(list.get(currentPosition).getExerciseId());
+        }else currentName="Отдых";
         int currentRepeat = list.get(currentPosition).getRepeat();
         int currentWeight = list.get(currentPosition).getWeight();
         int currentTime = list.get(currentPosition).getTime();
@@ -146,7 +152,7 @@ public class TabataTimerFragment extends Fragment{
         binding.counterWeight.setText(Integer.toString(currentWeight)+" кг");
 
         if(currentPosition!=0) {
-            int speech = tts.speak(currentName + currentTime + "минут" + currentRepeat + "раз", TextToSpeech.QUEUE_FLUSH, null);
+//            int speech = tts.speak(currentName + currentTime + "минут" + currentRepeat + "раз", TextToSpeech.QUEUE_FLUSH, null);
         }
 
         mCountDownTimer = new CountDownTimer(getInfo().getTime()*60000, 1000) {

@@ -19,10 +19,12 @@ public class ProgramViewModel extends AndroidViewModel {
     public ProgramViewModel (Application application) {
         super(application);
         mRepository = new ProgramRepository(application);
-        mAllPrograms = mRepository.getAllPrograms();
+        mAllPrograms = mRepository.getAllLiveDataPrograms();
     }
 
-    public LiveData<List<Program>> getAllPrograms() { return mAllPrograms; }
+    public LiveData<List<Program>> getAllLiveDataPrograms() { return mAllPrograms; }
+
+    public List<Program> getAllPrograms() { return mRepository.getAllPrograms(); }
 
     public void insert(Program program) { mRepository.insert(program); }
 

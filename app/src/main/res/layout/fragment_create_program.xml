@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginVertical="120dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="240dp"
         android:elevation="20dp"
         app:cardCornerRadius="20dp">
 
@@ -373,6 +374,30 @@
                     android:layout_marginHorizontal="10dp"/>
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="галлерея"
+                        android:background="@drawable/btn_rounder_corner"
+                        android:paddingHorizontal="10dp"/>
+
+                    <Button
+                        android:id="@+id/default_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="встроенные"
+                        android:background="@drawable/btn_rounder_corner"
+                        android:paddingHorizontal="10dp"/>
+
+                </LinearLayout>
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -383,6 +408,7 @@
                     android:layout_marginBottom="20dp">
 
                     <ImageView
+                        android:id="@+id/imageCreateProgram"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/sport_men"

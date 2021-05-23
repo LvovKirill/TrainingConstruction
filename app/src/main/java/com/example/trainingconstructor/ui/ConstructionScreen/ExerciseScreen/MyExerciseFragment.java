@@ -42,9 +42,9 @@ public class MyExerciseFragment extends Fragment {
             public void onClick(View v) {
                 CreateExerciseFragment youFragment = new CreateExerciseFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment)
+                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment, "createExerciseFrag")
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
+                        .addToBackStack("createExerciseFrag")
                         .commit();
             }
         });

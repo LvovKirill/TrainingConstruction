@@ -9,6 +9,7 @@
     tools:context=".ui.ConstructionScreen.ProgramScreen.ProgramFragment">
 
     <ImageView
+        android:id="@+id/programImage"
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:scaleType="centerCrop"
@@ -132,6 +133,20 @@
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
+                        <Button
+                            android:id="@+id/planButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/btn_rounder_corner"
+                            android:gravity="center"
+                            android:rotation="90"
+                            android:text="@string/plan"
+                            android:textSize="10dp"
+                            android:textColor="@color/white" />
+
                     </TableRow>
 
 
@@ -156,7 +171,13 @@
                     <org.naishadhparmar.zcustomcalendar.CustomCalendar
                         android:id="@+id/calendar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        app:day_of_week_length="1"
+                        app:day_of_week_start_from="sunday"
+                        app:month_year_format="full_month__with_year"
+                        app:row_height="50dp"
+                        app:left_button_src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                        app:right_button_src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
 
 
 
@@ -171,18 +192,97 @@
                             android:textColor="@color/white"
                             android:gravity="center"
                             android:layout_marginVertical="10dp"
-                            android:text="Группы мышц"
+                            android:text="@string/activity"
                             android:textSize="20dp" />
                     </RelativeLayout>
 
 
 
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/pieChart"
-                        android:layout_width="250dp"
-                        android:layout_height="250dp"
-                        android:layout_marginVertical="10dp"
-                        android:layout_gravity="center"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp">
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/barChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_gravity="center" />
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/barChart"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="пн"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="вт"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="ср"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="чт"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="пт"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="сб"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="вс"
+                                android:textColor="@color/black"
+                                android:textSize="10dp" />
+
+                        </TableRow>
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -205,28 +305,6 @@
                         android:nestedScrollingEnabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:background="@drawable/custom_add_window"
-                        android:layout_height="130dp"
-                        android:layout_marginVertical="15dp"
-                        android:layout_marginHorizontal="20dp">
-
-                        <Button
-                            android:id="@+id/addButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/empty_background"/>
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:tint="@color/transparent_black"
-                            android:src="@drawable/ic_baseline_add_24" />
-
-                    </FrameLayout>
 
 
                 </LinearLayout>

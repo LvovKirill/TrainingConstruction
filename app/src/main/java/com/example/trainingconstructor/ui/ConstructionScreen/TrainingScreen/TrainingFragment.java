@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +26,8 @@ import android.view.animation.AnimationUtils;
 
 import com.example.trainingconstructor.DataBase.DataBase;
 import com.example.trainingconstructor.DataBase.Exercise.Exercise;
+import com.example.trainingconstructor.DataBase.ProgramFromTraining.ProgramFromTraining;
+import com.example.trainingconstructor.DataBase.Training.Training;
 import com.example.trainingconstructor.DataBase.Training.TrainingViewModel;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExerciseViewModel;
@@ -35,6 +39,7 @@ import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.AddP
 import com.example.trainingconstructor.ui.TabataTimerScreen.TabataTimerFragment;
 import com.example.trainingconstructor.R;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -42,17 +47,23 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TrainingFragment extends Fragment implements View.OnClickListener, View.OnTouchListener{
 
     FragmentTrainingBinding binding;
     public static TrainingFromExerciseViewModel trainingFromExerciseViewModel;
+    private GetInfoTrainingListener getInfoListener;
     public static TrainingViewModel trainingViewModel;
+    private CreateTrainingFragment.FragmentListener listener;
+
+    List<TrainingFromExercise> list = new ArrayList<>();
 
 
     public static TrainingFragment newInstance(int id) {
@@ -63,30 +74,16 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         return trainingFragment;
     }
 
+    public interface GetInfoTrainingListener{
+        void getInfoListener();
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentTrainingBinding.inflate(inflater, container, false);
-
-        DataCounter dataCounter = new DataCounter();
-
-        createPie(dataCounter);
-        loadPage(dataCounter);
-
-        final TrainingFromExerciseAdapter adapter = new TrainingFromExerciseAdapter(new TrainingFromExerciseAdapter.TrainingFromExerciseDiff(), getContext());
-        binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.isScrollbarFadingEnabled();
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        trainingFromExerciseViewModel = new ViewModelProvider(this).get(TrainingFromExerciseViewModel.class);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
-
-        trainingFromExerciseViewModel.getTrainingFromExercisesFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
-            adapter.submitList(exercises);
-        });
+        update();
 
         binding.addPointButton.setOnClickListener(this);
         binding.addRestButton.setOnClickListener(this);
@@ -119,10 +116,13 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         Drawable ic_shoulder = getResources().getDrawable(R.drawable.ic_shoulder);
         ic_shoulder.setTint(Color.WHITE);
         ic_shoulder.setBounds(0,45,0,40);
+        Drawable ic_press = getResources().getDrawable(R.drawable.ic_press);
+        ic_press.setTint(Color.WHITE);
+        ic_press.setBounds(0,45,0,40);
 
         ArrayList<PieEntry> pieArray = new ArrayList<>();
         if(dataCounter.countPress!=0)
-            pieArray.add(new PieEntry(dataCounter.countPress, ic_chest));
+            pieArray.add(new PieEntry(dataCounter.countPress, ic_press));
         if(dataCounter.countHand!=0)
             pieArray.add(new PieEntry(dataCounter.countHand, ic_arm));
         if(dataCounter.countBack!=0)
@@ -137,7 +137,7 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         if(dataCounter.countPress==0 && dataCounter.countHand==0
                 && dataCounter.countBack==0 && dataCounter.countBreast==0 && dataCounter.countFoot==0 && dataCounter.countSholders==0){
             binding.emptyPie.setText(getString(R.string.emptyPie));
-        }
+        }else binding.emptyPie.setText("");
 
         PieDataSet barDataSetForPieChart = new PieDataSet(pieArray, "pieArray");
 
@@ -164,6 +164,8 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         binding.pieChart.setUsePercentValues(true);
         binding.pieChart.setDrawingCacheEnabled(false);
         binding.pieChart.setDragDecelerationEnabled(true);
+        binding.pieChart.invalidate();
+        binding.pieChart.spin(500,0,-360f, Easing.EasingOption.EaseInOutQuad);
 
 
     }
@@ -178,7 +180,6 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
     public static void addTrainingFromExercise(TrainingFromExercise trainingFromExercise){
         trainingFromExerciseViewModel.insert(trainingFromExercise);
     }
-
 
 
     class DecimalRemover extends PercentFormatter {
@@ -209,17 +210,19 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
 
                 try {
                     list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+                    Collections.sort(list, new TrainingFromExerciseComparator());
                     for(TrainingFromExercise trainingFromExercise :  list){
-                        int exerciseId = trainingFromExercise.getExerciseId();
-                        Exercise exercise = MyExerciseFragment.exerciseViewModel.getExerciseByID(exerciseId);
-                        if(exercise.isPress_type())countPress++;
-                        if(exercise.isHands_type())countHand++;
-                        if(exercise.isFoot_type())countFoot++;
-                        if(exercise.isBack_type())countBack++;
-                        if(exercise.isBreast_type())countBreast++;
-                        if(exercise.isSholders_type())countSholders++;
-                        countTime += trainingFromExercise.getTime();
-                        countExercise++;
+                        if(trainingFromExercise.getExerciseId()!=0) {
+                            int exerciseId = trainingFromExercise.getExerciseId();
+                            Exercise exercise = MyExerciseFragment.exerciseViewModel.getExerciseByID(exerciseId);
+                            if (exercise.isPress_type()) countPress++;
+                            if (exercise.isHands_type()) countHand++;
+                            if (exercise.isFoot_type()) countFoot++;
+                            if (exercise.isBack_type()) countBack++;
+                            if (exercise.isBreast_type()) countBreast++;
+                            if (exercise.isSholders_type()) countSholders++;
+                            countExercise++;
+                        } countTime += trainingFromExercise.getTime();
 
                     }
 
@@ -227,21 +230,116 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+    TrainingFromExercise deletedMovie = null;
+    List<TrainingFromExercise> archivedTFE = new ArrayList<>();
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback( ItemTouchHelper.UP | ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 
             int fromPosition = viewHolder.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
 
-//            Collections.swap(Collections.singletonList(trainingFromExerciseViewModel.getTrainingFromExercisesFromTrainingNumber(getArguments().getInt("ID")), fromPosition, toPosition);
+            TrainingFromExercise trainingFromExerciseFrom = list.get(fromPosition);
+            int numberFrom = trainingFromExerciseFrom.getNumberInTraining();
+            TrainingFromExercise trainingFromExerciseTo = list.get(toPosition);
+            int numberTo = trainingFromExerciseTo.getNumberInTraining();
+
+            Collections.swap(list, fromPosition, toPosition);
+            recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+
+            trainingFromExerciseFrom.setNumberInTraining(numberTo);
+            trainingFromExerciseTo.setNumberInTraining(numberFrom);
+
+            DataBase.getDatabase(getActivity()).trainingFromExerciseDao().updateTrainingFromExercise(trainingFromExerciseFrom);
+            DataBase.getDatabase(getActivity()).trainingFromExerciseDao().updateTrainingFromExercise(trainingFromExerciseTo);
             return false;
         }
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
+        @Override
+        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+
+            final int position = viewHolder.getAdapterPosition();
+
+            switch (direction) {
+//                case ItemTouchHelper.LEFT:
+//                    deletedMovie = list.get(position);
+//                    list.remove(position);
+//                    binding.recyclerView.getAdapter().notifyItemRemoved(position);
+//                    Snackbar.make(binding.recyclerView, String.valueOf(deletedMovie.getTime()), Snackbar.LENGTH_LONG)
+//                            .setAction("Undo", new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    list.add(position, deletedMovie);
+//                                    binding.recyclerView.getAdapter().notifyItemInserted(position);
+//                                }
+//                            }).show();
+//                    break;
+                case ItemTouchHelper.RIGHT:
+                    final TrainingFromExercise trainingFromExercise = list.get(position);
+                    archivedTFE.add(trainingFromExercise);
+
+                    list.remove(position);
+                    binding.recyclerView.getAdapter().notifyItemRemoved(position);
+
+                    DataBase.getDatabase(getActivity()).trainingFromExerciseDao().delete(trainingFromExercise);
+
+                    Snackbar.make(binding.recyclerView, "Вы уверены, что хотите удалить этот пункт из тренировки?", Snackbar.LENGTH_LONG)
+                            .setAction("Вернуть", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    archivedTFE.remove(archivedTFE.lastIndexOf(trainingFromExercise));
+                                    list.add(position, trainingFromExercise);
+                                    binding.recyclerView.getAdapter().notifyItemInserted(position);
+                                }
+                            }).show();
+                    getActivity().getSupportFragmentManager().findFragmentByTag("trainingFrag").onStart();
+
+                    break;
+            }
         }
     };
+
+    public class TrainingFromExerciseComparator implements Comparator<TrainingFromExercise> {
+        @Override
+        public int compare(TrainingFromExercise o1, TrainingFromExercise o2) {
+            if(o1.getNumberInTraining()<o2.getNumberInTraining()) return -1;
+            else if (o1.getNumberInTraining()>o2.getNumberInTraining()) return 1;
+            else return 0;
+        }
+    }
+
+    public void update(){
+        trainingFromExerciseViewModel = new ViewModelProvider(this).get(TrainingFromExerciseViewModel.class);
+
+        List<TrainingFromExercise> list1 = trainingFromExerciseViewModel.getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+        list.clear();
+        for(TrainingFromExercise trainingFromExercise: list1){
+            list.add(trainingFromExercise);
+        }
+        Collections.sort(list, new TrainingFromExerciseComparator());
+        DataCounter dataCounter = new DataCounter();
+
+        trainingViewModel = new ViewModelProvider(this).get(TrainingViewModel.class);
+        Training training = trainingViewModel.getTrainingByID(getArguments().getInt("ID"));
+        binding.headerTraining.setImageResource(training.getImg_id());
+
+
+        createPie(dataCounter);
+        loadPage(dataCounter);
+
+        binding.recyclerView.isScrollbarFadingEnabled();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        binding.recyclerView.addItemDecoration(dividerItemDecoration);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+
+        TrainingFromExerciseAdapter recyclerAdapter = new TrainingFromExerciseAdapter(list);
+        binding.recyclerView.setAdapter(recyclerAdapter);
+    }
 
 
     @Override
@@ -251,19 +349,16 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
 
         if(binding.addPointButton.equals(v)) {
             if(event.getAction()==MotionEvent.ACTION_UP){}
-//                binding.addTrainingLayout.startAnimation(scaleUp);
             else if(event.getAction()==MotionEvent.ACTION_DOWN)
                 binding.addTrainingLayout.startAnimation(scaleUp);
 
         } else if (binding.addRestButton.equals(v)) {
             if(event.getAction()==MotionEvent.ACTION_UP){}
-//                binding.addRestLayout.startAnimation(scaleUp);
             else if(event.getAction()==MotionEvent.ACTION_DOWN)
                 binding.addRestLayout.startAnimation(scaleUp);
 
         } else if (binding.startButton.equals(v)) {
             if(event.getAction()==MotionEvent.ACTION_UP){}
-//                binding.startButton.startAnimation(scaleUp);
             else if(event.getAction()==MotionEvent.ACTION_DOWN)
                 binding.startButton.startAnimation(scaleUp);
 
@@ -277,18 +372,14 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
 
         if (binding.addPointButton.equals(v)) {
-//            Animation animRotateIn_big = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
-//            binding.addTrainingLayout.startAnimation(animRotateIn_big);
             FragmentManager fragmentManager = getFragmentManager();
             AddPointExersiseFragment myFragment = AddPointExersiseFragment.newInstance(getArguments().getInt("ID"));
             fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                     .addToBackStack("myStack")
                     .commit();
         } else if (binding.addRestButton.equals(v)) {
-//            Animation animRotateIn_big_rest = AnimationUtils.loadAnimation(getActivity(), R.anim.puls);
-//            binding.addRestLayout.startAnimation(animRotateIn_big_rest);
             FragmentManager fragmentManagerRest = getFragmentManager();
-            AddPointExersiseRestFragment myFragmentRest = new AddPointExersiseRestFragment();
+            AddPointExersiseRestFragment myFragmentRest = AddPointExersiseRestFragment.newInstance(getArguments().getInt("ID"));
             fragmentManagerRest.beginTransaction().add(R.id.frameLayout, myFragmentRest).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                     .addToBackStack("myStack")
                     .commit();
@@ -302,6 +393,9 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
 
     }
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        update();
+    }
 }

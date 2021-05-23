@@ -29,10 +29,8 @@ class TrainingRepository {
         });
     }
 
-    void getTrainingByID(int id) {
-        DataBase.databaseWriteExecutor.execute(() -> {
-            mTrainingDao.getTrainingByID(id);
-        });
+    Training getTrainingByID(int id) {
+           return mTrainingDao.getTrainingByID(id);
     }
 
     void deleteByID(int id) {

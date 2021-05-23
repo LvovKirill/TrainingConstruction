@@ -21,6 +21,7 @@ public class MyProgramFragment extends Fragment {
     com.example.trainingconstructor.databinding.FragmentMyProgramBinding binding;
     public static ProgramViewModel programViewModel;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    boolean emptyFlag;
 
 
     @Override
@@ -34,16 +35,18 @@ public class MyProgramFragment extends Fragment {
 
         programViewModel = new ViewModelProvider(this).get(ProgramViewModel.class);
 
-        programViewModel.getAllPrograms().observe(getViewLifecycleOwner(), programs -> {
+        programViewModel.getAllLiveDataPrograms().observe(getViewLifecycleOwner(), programs -> {
             adapter.submitList(programs);
         });
+
+        if(programViewModel.getAllPrograms().size()==0){emptyList();}
 
         binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateProgramFragment youFragment = new CreateProgramFragment();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment)
+                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment, "createProgramFrag")
                         .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack("myStack")
                         .commit();
@@ -53,6 +56,15 @@ public class MyProgramFragment extends Fragment {
         return binding.getRoot();
     }
 
+    public void emptyList(){
+//        binding.emptyListProgramImg.setImageResource(R.drawable.for_empty_list_img);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(emptyFlag){emptyList();}
+    }
 
     public static void addProgram(Program program) {
         programViewModel.insert(program);

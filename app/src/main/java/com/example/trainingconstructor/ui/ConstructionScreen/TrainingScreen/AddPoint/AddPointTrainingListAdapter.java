@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,13 +40,13 @@ public class AddPointTrainingListAdapter extends ListAdapter<Exercise, AddPointT
         @Override
         public void onBindViewHolder(AddPointTrainingViewHolder holder, int position) {
             Exercise current = getItem(position);
-            holder.bind(current.getName());
+            holder.bind(current.getName(), current.getImg_id());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    ((AddPointExersiseFragment) fragment).setText(current.getId());
+                    ((AddPointExersiseFragment) fragment).setData(current.getName(), current.getId());
 
                 }
             });
@@ -71,14 +72,17 @@ public class AddPointTrainingListAdapter extends ListAdapter<Exercise, AddPointT
 class AddPointTrainingViewHolder extends RecyclerView.ViewHolder   {
 
     private final TextView nameExercise;
+    private final ImageView imageView;
 
     private AddPointTrainingViewHolder(View itemView) {
         super(itemView);
         nameExercise = itemView.findViewById(R.id.name_exercise);
+        imageView = itemView.findViewById(R.id.imageItem);
     }
 
-    public void bind(String text) {
+    public void bind(String text, int imgId) {
         nameExercise.setText(text);
+        imageView.setImageResource(imgId);
     }
 
     static AddPointTrainingViewHolder create(ViewGroup parent) {

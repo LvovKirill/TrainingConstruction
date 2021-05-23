@@ -3,8 +3,11 @@ package com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +23,17 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.trainingconstructor.DataBase.DataBase;
 import com.example.trainingconstructor.DataBase.Training.Training;
+import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExercise;
 import com.example.trainingconstructor.R;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
 
 public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolder> {
 
@@ -32,6 +44,7 @@ public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolde
         this.context = context;
     }
 
+
     @Override
     public TrainingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return TrainingViewHolder.create(parent);
@@ -41,8 +54,7 @@ public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolde
     public void onBindViewHolder(TrainingViewHolder holder, int position) {
         Training current = getItem(position);
 
-        holder.bind(current.getName(), current.isPress_type(), current.isHands_type(), current.isBack_type(),
-                current.isBreast_type(), current.isFoot_type(), current.isBreast_sholders(), holder.itemView.getContext());
+        holder.bind(current, holder.itemView.getContext());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +62,8 @@ public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolde
 
                 FragmentManager fragmentManager = ((AppCompatActivity) holder.itemView.getContext()).getSupportFragmentManager();
                 TrainingFragment myFragment = TrainingFragment.newInstance(current.getId());
-                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack("myStack")
+                fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment, "trainingFrag").setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack("trainingFrag")
                         .commit();
 
             }
@@ -119,6 +131,8 @@ public class TrainingListAdapter extends ListAdapter<Training, TrainingViewHolde
 class TrainingViewHolder extends RecyclerView.ViewHolder{
 
     private final TextView nameTraining;
+    private final TextView timeTraining;
+    private final ImageView image;
     private final ImageView icPress;
     private final ImageView icArm;
     private final ImageView icBack;
@@ -129,6 +143,8 @@ class TrainingViewHolder extends RecyclerView.ViewHolder{
     private TrainingViewHolder(View itemView) {
         super(itemView);
         nameTraining = itemView.findViewById(R.id.name_training);
+        timeTraining = itemView.findViewById(R.id.time_of_training);
+        image = itemView.findViewById(R.id.image_training_item);
         icPress = itemView.findViewById(R.id.ic_press);
         icArm = itemView.findViewById(R.id.ic_arm);
         icBack = itemView.findViewById(R.id.ic_back);
@@ -137,15 +153,24 @@ class TrainingViewHolder extends RecyclerView.ViewHolder{
         icSholders = itemView.findViewById(R.id.ic_sholders);
     }
 
-    public void bind(String text, boolean isPress, boolean isArm, boolean isBack, boolean isChest, boolean isLeg, boolean isSholders, Context context) {
-        nameTraining.setText(text);
+    public void bind(Training training, Context context) {
+        nameTraining.setText(training.getName());
+        image.setImageResource(training.getImg_id());
 
-        if(isPress){ icPress.setColorFilter(Color.argb(255, 255, 255, 255));}
-        if(isArm){ icArm.setColorFilter(Color.argb(255, 255, 255, 255));}
-        if(isBack){ icBack.setColorFilter(Color.argb(255, 255, 255, 255));}
-        if(isChest){ icChest.setColorFilter(Color.argb(255, 255, 255, 255));}
-        if(isLeg){ icLeg.setColorFilter(Color.argb(255, 255, 255, 255));}
-        if(isSholders){ icSholders.setColorFilter(Color.argb(255, 255, 255, 255));}
+//        image.setImageBitmap(getImageBitmap(training.getImage_path()));
+        int time=0;
+        List<TrainingFromExercise> list = DataBase.getDatabase(context).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(training.getId());
+        for(TrainingFromExercise trainingFromExercise: list){
+            time+=trainingFromExercise.getTime();
+        }
+        timeTraining.setText(String.valueOf(time)+" "+context.getResources().getString(R.string.min));
+
+        if(training.isPress_type()){ icPress.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(training.isHands_type()){ icArm.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(training.isBack_type()){ icBack.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(training.isBreast_type()){ icChest.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(training.isFoot_type()){ icLeg.setColorFilter(Color.argb(255, 255, 255, 255));}
+        if(training.isSholders_type()){ icSholders.setColorFilter(Color.argb(255, 255, 255, 255));}
     }
     @SuppressLint("ResourceAsColor")
 
@@ -153,6 +178,23 @@ class TrainingViewHolder extends RecyclerView.ViewHolder{
     static TrainingViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.training_item, parent, false);
         return new TrainingViewHolder(view);
+    }
+
+    private Bitmap getImageBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL aURL = new URL(url);
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+        } catch (IOException e) {
+            Log.e("Error", "Error getting bitmap", e);
+        }
+        return bm;
     }
 
 

@@ -21,13 +21,11 @@
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
+                app:cardElevation="20dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black">
 
 
                 <RadioGroup
@@ -39,21 +37,23 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="Русский"/>
+
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="English"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="Deutsch"/>
 
                 </RadioGroup>
-
-                </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -62,6 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
+                android:layout_marginBottom="100dp"
+                app:cardElevation="20dp"
                 app:cardCornerRadius="20dp"
                 android:layout_height="wrap_content">
 
@@ -69,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/black">
+                    android:background="@color/white">
 
                     <Switch
                         android:layout_width="wrap_content"
@@ -80,6 +82,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="тема"
                         android:layout_gravity="center"/>
 

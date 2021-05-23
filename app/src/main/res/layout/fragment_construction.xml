@@ -63,7 +63,7 @@
                 android:id="@+id/customTabItem2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/hint_color"
+                android:textColor="@color/transparent_black"
                 android:layout_weight="1"
                 android:text="тренировки"
                 android:gravity="center"/>
@@ -72,7 +72,7 @@
                 android:id="@+id/customTabItem3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/hint_color"
+                android:textColor="@color/transparent_black"
                 android:layout_weight="1"
                 android:text="упражнения"
                 android:gravity="center"/>

@@ -1,8 +1,11 @@
 package com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Toast;
 
 import com.example.trainingconstructor.DataBase.Training.Training;
 import com.example.trainingconstructor.DataBase.Training.TrainingViewModel;
 import com.example.trainingconstructor.R;
 import com.example.trainingconstructor.databinding.FragmentMyTrainingBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class MyTrainingFragment extends Fragment {
@@ -53,9 +58,9 @@ public class MyTrainingFragment extends Fragment {
                 CreateTrainingFragment youFragment = CreateTrainingFragment.newInstance();
                 getActivity().getSupportFragmentManager().popBackStack();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment)
+                fragmentManager.beginTransaction().add(R.id.frameLayout, youFragment, "createTrainingFrag")
                         .setCustomAnimations(R.anim.layout_animation_fall_down, R.anim.layout_animation_fall_down)
-                        .addToBackStack("myStack")
+                        .addToBackStack("createTrainingFrag")
                         .commit();
             }
         });

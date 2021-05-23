@@ -21,7 +21,7 @@ class ProgramRepository {
         mAllPrograms = mProgramDao.getAllProgramLiveData();
     }
 
-    LiveData<List<Program>> getAllPrograms() {
+    LiveData<List<Program>> getAllLiveDataPrograms() {
         return mAllPrograms;
     }
 
@@ -35,5 +35,9 @@ class ProgramRepository {
         DataBase.databaseWriteExecutor.execute(() -> {
             mProgramDao.deleteById(id);
         });
+    }
+
+    List<Program> getAllPrograms(){
+        return mProgramDao.getAllProgram();
     }
 }
