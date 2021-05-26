@@ -64,7 +64,6 @@ public class CreateExerciseFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
                     Exercise exercise = new Exercise(name, press_type, hands_type, foot_type, back_type, breast_type, shoulder_type, imgID);
-                    Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputExerciseSent(exercise);
 

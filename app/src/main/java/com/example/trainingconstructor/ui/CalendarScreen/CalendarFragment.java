@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.trainingconstructor.DataBase.DataBase;
 import com.example.trainingconstructor.DataBase.Program.Program;
 import com.example.trainingconstructor.DataBase.ProgramFromTraining.ProgramFromTraining;
 import com.example.trainingconstructor.DataBase.Training.Training;
+import com.example.trainingconstructor.DataBase.Training.TrainingViewModel;
 import com.example.trainingconstructor.DataBase.TrainingFromExercise.TrainingFromExerciseViewModel;
 import com.example.trainingconstructor.R;
 import com.example.trainingconstructor.databinding.FragmentKalendarBinding;
@@ -43,6 +45,20 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentKalendarBinding.inflate(inflater, container, false);
+
+        final TrainingListAdapter adapter = new TrainingListAdapter(new TrainingListAdapter.TrainingDiff(), getActivity());
+        binding.calendarRecyclerView.setAdapter(adapter);
+
+
+        binding.calendarRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        List<Training> trainings =
+//
+//        trainingViewModel = new ViewModelProvider(this).get(TrainingViewModel.class);
+//
+//        trainingViewModel.getAllTrainings().observe(getViewLifecycleOwner(), trainings -> {
+//            adapter.submitList(trainings);
+//        });
 
         createCalendar(binding.calendar);
 

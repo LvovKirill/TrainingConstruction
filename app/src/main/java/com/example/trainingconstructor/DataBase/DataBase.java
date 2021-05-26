@@ -71,11 +71,13 @@ public abstract class DataBase extends RoomDatabase {
                 ProgramDao dao = INSTANCE.programDao();
                 dao.deleteAll();
 
-                Program program = new Program("Воин спарты", "Описание", 1, 22, 2, R.drawable.sport_men);
+                Program program = new Program("Новичок 1.0", "Описание", 1, 22, 2, 2131230889);
                 dao.insertProgram(program);
-                program = new Program("Новичок 1.0", "Описание", 3, 14, 1, R.drawable.sport_men);
+                program = new Program("Новичок 2.0", "Описание", 3, 14, 1, R.drawable.sport_men);
                 dao.insertProgram(program);
-                program = new Program("Новичок 1.0", "Описание", 3, 14, 3, R.drawable.sport_men);
+                program = new Program("Новичок 3.0", "Описание", 3, 14, 3, 2131230888);
+                dao.insertProgram(program);
+                program = new Program("Продвинутый 1.0", "Описание", 3, 14, 3, 2131230892);
                 dao.insertProgram(program);
             });
 
@@ -84,7 +86,16 @@ public abstract class DataBase extends RoomDatabase {
                 TrainingDao dao = INSTANCE.trainingDao();
                 dao.deleteAll();
 
-                Training training = new Training("Силовая тренировка на пресс", true, false, false, false, false, false, "path", CreateTrainingFragment.getImgId());
+                Training training = new Training("Силовая тренировка на пресс", true, false, false, false, false, false, "path", R.drawable.image_dg_10);
+                dao.insertTraining(training);
+//
+                training = new Training("Тренировка на бицепс", false, true, false, false, false, false, "path", R.drawable.image_dg_12);
+                dao.insertTraining(training);
+
+                training = new Training("Тренировка в зале", false, false, false, true, true, true, "path", R.drawable.sport_men);
+                dao.insertTraining(training);
+
+                training = new Training("Тренировка на турнике и брусьях", true, true, false, true, false, false, "path", R.drawable.image_dg_13);
                 dao.insertTraining(training);
             });
 
@@ -93,9 +104,13 @@ public abstract class DataBase extends RoomDatabase {
                 ExerciseDao dao = INSTANCE.exerciseDao();
                 dao.deleteAll();
 
-                Exercise exercise = new Exercise("Планка", true, false, false, false, false, false, R.drawable.image_dg_4);
+                Exercise exercise = new Exercise("Жим лёжа", false, false, false, false, true, false, R.drawable.image_dg_ex_8);
                 dao.insertExercise(exercise);
-                exercise = new Exercise("Отжимания", true, false, false, false, false, false, R.drawable.sport_men);
+                exercise = new Exercise("Отжимания", true, true, false, false, false, false, R.drawable.image_dg_ex_2);
+                dao.insertExercise(exercise);
+                exercise = new Exercise("Бег", false, false, true, false, false, false, R.drawable.image_dg_ex_3);
+                dao.insertExercise(exercise);
+                exercise = new Exercise("Обратные отжимания", false, true, false, false, false, false, R.drawable.image_dg_ex_11);
                 dao.insertExercise(exercise);
             });
 

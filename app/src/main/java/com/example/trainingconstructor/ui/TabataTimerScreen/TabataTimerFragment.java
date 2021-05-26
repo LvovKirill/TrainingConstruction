@@ -34,6 +34,8 @@ import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.Trai
 import com.example.trainingconstructor.ui.ConstructionScreen.TrainingScreen.TrainingFromExerciseAdapter;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -76,6 +78,8 @@ public class TabataTimerFragment extends Fragment{
 
         List<TrainingFromExercise> list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
 
+        Collections.sort(list, new TrainingFromExerciseComparator());
+
         final TrainingFromExerciseAdapter adapter = new TrainingFromExerciseAdapter(list);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.isScrollbarFadingEnabled();
@@ -83,6 +87,8 @@ public class TabataTimerFragment extends Fragment{
 
         trainingFromExerciseViewModel = new ViewModelProvider(this).get(TrainingFromExerciseViewModel.class);
         list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+
+        Collections.sort(list, new TrainingFromExerciseComparator());
 
 //        DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingNumber(getArguments().getInt("ID")).observe(getViewLifecycleOwner(), exercises -> {
 //            adapter.submitList(exercises);
@@ -140,19 +146,29 @@ public class TabataTimerFragment extends Fragment{
 
     private void startTimer() {
         list = DataBase.getDatabase(getActivity()).trainingFromExerciseDao().getTrainingFromExerciseFromTrainingId(getArguments().getInt("ID"));
+        Collections.sort(list, new TrainingFromExerciseComparator());
         String currentName;
         if(list.get(currentPosition).getExerciseId()!=0) {
             currentName = DataBase.getDatabase(getActivity()).exerciseDao().getNameByID(list.get(currentPosition).getExerciseId());
         }else currentName="Отдых";
-        int currentRepeat = list.get(currentPosition).getRepeat();
-        int currentWeight = list.get(currentPosition).getWeight();
-        int currentTime = list.get(currentPosition).getTime();
-        binding.nameCurrent.setText(currentName);
-        binding.counterRepeat.setText(Integer.toString(currentRepeat)+" x");
-        binding.counterWeight.setText(Integer.toString(currentWeight)+" кг");
+        if(currentName.equals("Отдых")){
+            binding.cardWeight.setVisibility(View.INVISIBLE);
+            binding.counterRepeat.setText("Отдых");
+            binding.counterRepeat.setTextSize(18);
+
+        }else {
+            binding.counterRepeat.setTextSize(30);
+            binding.cardWeight.setVisibility(View.VISIBLE);
+            int currentRepeat = list.get(currentPosition).getRepeat();
+            int currentWeight = list.get(currentPosition).getWeight();
+            int currentTime = list.get(currentPosition).getTime();
+            binding.nameCurrent.setText(currentName);
+            binding.counterRepeat.setText(Integer.toString(currentRepeat) + " x");
+            binding.counterWeight.setText(Integer.toString(currentWeight) + " кг");
+        }
 
         if(currentPosition!=0) {
-//            int speech = tts.speak(currentName + currentTime + "минут" + currentRepeat + "раз", TextToSpeech.QUEUE_FLUSH, null);
+//            tts.speak(currentName + currentTime + "минут" + currentRepeat + "раз", TextToSpeech.QUEUE_FLUSH, null);
         }
 
         mCountDownTimer = new CountDownTimer(getInfo().getTime()*60000, 1000) {
@@ -170,6 +186,7 @@ public class TabataTimerFragment extends Fragment{
             @Override
             public void onFinish() {
                 mTimerRunning = false;
+                mCountDownTimer.cancel();
                 currentPosition++;
                 if(currentPosition+1<=list.size()){startTimer();
                     }
@@ -201,4 +218,16 @@ public class TabataTimerFragment extends Fragment{
     private TrainingFromExercise getInfo(){
         return list.get(currentPosition);
     }
+
+    public class TrainingFromExerciseComparator implements Comparator<TrainingFromExercise> {
+        @Override
+        public int compare(TrainingFromExercise o1, TrainingFromExercise o2) {
+            if(o1.getNumberInTraining()<o2.getNumberInTraining()) return -1;
+            else if (o1.getNumberInTraining()>o2.getNumberInTraining()) return 1;
+            else return 0;
+        }
+    }
+
+
+
 }

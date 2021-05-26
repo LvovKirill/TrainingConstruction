@@ -42,7 +42,7 @@
     <string name="rest">отдых</string>
 
     <string name="time">Время: </string>
-    <string name="repeat">Повторения:</string>
+    <string name="repeat">Упражнений:</string>
     <string name="weight">Вес:</string>
 
 
@@ -65,6 +65,7 @@
     <string name="weight1">вес</string>
     <string name="time_and_min">время (мин)</string>
     <string name="emptyPie">Добавьте данные, чтобы увидеть аналитику</string>
+    <string name="planProgram">Программа запланирована</string>
     <string name="complexity_of_the_program">Сложность программы</string>
     <string name="program_cycle">Цикл программы</string>
     <string name="weeks">недели</string>

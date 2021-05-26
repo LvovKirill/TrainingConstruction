@@ -85,6 +85,15 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         binding = FragmentTrainingBinding.inflate(inflater, container, false);
         update();
 
+        binding.recyclerView.isScrollbarFadingEnabled();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        binding.recyclerView.addItemDecoration(dividerItemDecoration);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+
         binding.addPointButton.setOnClickListener(this);
         binding.addRestButton.setOnClickListener(this);
         binding.startButton.setOnClickListener(this);
@@ -246,7 +255,7 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
             int numberTo = trainingFromExerciseTo.getNumberInTraining();
 
             Collections.swap(list, fromPosition, toPosition);
-            recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+            binding.recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
 
             trainingFromExerciseFrom.setNumberInTraining(numberTo);
             trainingFromExerciseTo.setNumberInTraining(numberFrom);
@@ -328,14 +337,14 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         createPie(dataCounter);
         loadPage(dataCounter);
 
-        binding.recyclerView.isScrollbarFadingEnabled();
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-        binding.recyclerView.addItemDecoration(dividerItemDecoration);
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+//        binding.recyclerView.isScrollbarFadingEnabled();
+//        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+//        binding.recyclerView.addItemDecoration(dividerItemDecoration);
+//
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+//        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
 
         TrainingFromExerciseAdapter recyclerAdapter = new TrainingFromExerciseAdapter(list);
         binding.recyclerView.setAdapter(recyclerAdapter);

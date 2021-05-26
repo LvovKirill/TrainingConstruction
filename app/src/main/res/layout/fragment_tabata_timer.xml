@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp">
     <ImageView
+        android:id="@+id/imageTimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/sport_men"
@@ -28,45 +29,65 @@
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/white">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_repeat_week"
-                    app:tint="@color/white" />
+                    app:tint="@color/black" />
         <TextView
             android:id="@+id/counter_repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="15 x"
             android:textSize="30dp" />
             </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardWeight"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@color/white">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
                 android:orientation="horizontal">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_fitness_center_24"
-                    app:tint="@color/white" />
+                    app:tint="@color/black" />
                 <TextView
                     android:id="@+id/counterWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:text="5 кг"
                     android:textSize="30dp" />
             </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -81,16 +102,9 @@
         android:layout_marginBottom="-20dp"
         app:cardCornerRadius="20dp">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
+
+
 
 <!--            <RelativeLayout-->
 <!--                android:layout_width="match_parent"-->
@@ -206,13 +220,13 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"/>
 
             </LinearLayout>
 
-        </LinearLayout>
-        </ScrollView>
+
+
     </androidx.cardview.widget.CardView>
 
 

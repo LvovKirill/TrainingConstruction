@@ -193,7 +193,6 @@ public class CreateTrainingFragment extends BottomSheetDialogFragment {
         }
 
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-        Toast.makeText(getActivity(), file.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
         try {
             outputStream.flush();
@@ -286,7 +285,6 @@ public class CreateTrainingFragment extends BottomSheetDialogFragment {
             e.printStackTrace();
         }
 
-        Toast.makeText(getActivity(),f.getAbsolutePath(),Toast.LENGTH_SHORT).show();
         return getExternalStorageDirectory().getAbsolutePath() + f.getPath();
     }
 }

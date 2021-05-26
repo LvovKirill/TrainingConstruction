@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements
 
         menuItems.add(new MenuItem(getString(R.string.constraction),R.drawable.sport_men));
         menuItems.add(new MenuItem(getString(R.string.kalendar),R.drawable.calendar_image));
-        menuItems.add(new MenuItem(getString(R.string.statistics),R.drawable.statistic_image));
+//        menuItems.add(new MenuItem(getString(R.string.statistics),R.drawable.statistic_image));
         menuItems.add(new MenuItem(getString(R.string.settings),R.drawable.settings_image));
 
         sNavigationDrawer.setMenuItemList(menuItems);
@@ -100,11 +100,12 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     }
                     case 2:{
-                        fragmentClass = StatisticsFragment.class;
+//                        fragmentClass = StatisticsFragment.class;
+                        fragmentClass = SettingsFragment.class;
                         break;
                     }
                     case 3:{
-                        fragmentClass = SettingsFragment.class;
+//                        fragmentClass = SettingsFragment.class;
                         break;
                     }
 

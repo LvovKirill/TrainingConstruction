@@ -68,7 +68,7 @@ public class CreateProgramFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.choose_muscle_group, Toast.LENGTH_LONG).show();
                 }else {
                     Program program = new Program(name, about, cycle,5, complexity, imgId);
-                    Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), "всё чики-поки", Toast.LENGTH_LONG).show();
 
                     listener.onInputProgramSent(program);
 
@@ -78,7 +78,7 @@ public class CreateProgramFragment extends Fragment {
 //                    fragmentManager.beginTransaction().add(R.id.frameLayout, myFragment).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
 //                            .addToBackStack("myStack")
 //                            .commit();
-                   getActivity().getSupportFragmentManager().findFragmentByTag("myProgramFrag").onStart();
+//                   getActivity().getSupportFragmentManager().findFragmentByTag("myProgramFrag").onStart();
 
                     getActivity().onBackPressed();
 
